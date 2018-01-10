@@ -1,0 +1,120 @@
+<app-loader ng-if="vm.loading"></app-loader>
+
+<section class="out" ng-if="!vm.loading">
+
+  <app-header></app-header>
+
+
+  <div class="content">
+    <div class="wrap wrap_pt32">
+      <div class="content__i">
+
+        <div ng-show="!vm.orderLoaded" class="orderSearchForm orderSearchForm_change" style="display: block;">
+          <div class="orderSearchForm__i">
+
+            <div class="formBody">
+              <form class="formBody__i" name="vm.searchOrderForm" ng-submit="vm.submitSearch();"
+                    form-submit-error-highlight novalidate>
+
+
+                <div class="formBodyItem">
+                  <div class="steps active">
+
+                    <div class="steps__i">
+
+                      <h2 class="search-order-form-title">{{ 'web.order.form.title' | aliasStatic}}</h2>
+					  <div class="item item_order_search_params">
+                        <div class="item__i">
+
+
+                          <div class="col">
+                            <div class="inp">
+                              <div class="inp__i">
+                                <error-message
+                                        control="vm.searchOrderForm.pnr"
+                                        touched="vm.submitTouched">
+                                </error-message>
+                                <input type="text"
+                                       tabindex="3"
+                                       placeholder="{{ 'web.order.form.pnr' | aliasStatic}}"
+                                       class="textInp"
+                                       name="pnr"
+                                       ng-model="vm.searchParams.pnr"
+                                       ng-change="vm.clear()"
+                                       ng-pattern="vm.pnrOrTicketRegexp"
+                                       clean-search-order-param
+                                       error-highlight="{{ vm.submitTouched }}"
+                                       required/>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col">
+                            <div class="inp">
+                              <div class="inp__i">
+                                <error-message
+                                        control="vm.searchOrderForm.lastName"
+                                        touched="vm.submitTouched">
+                                </error-message>
+                                <input type="text"
+                                       tabindex="4"
+                                       placeholder="{{ 'web.order.form.lastName' | aliasStatic}}"
+                                       class="textInp"
+                                       name="lastName"
+                                       ng-model="vm.searchParams.lastName"
+                                       ng-change="vm.clear()"
+                                       ng-pattern="vm.passengerLastNameRegexp"
+                                       clean-search-order-param
+                                       error-highlight="{{ vm.submitTouched }}"
+                                       required/>
+                              </div>
+                            </div>
+                          </div>
+
+
+                        </div>
+                      </div>
+
+						<div class="search-order-form-btn-wrapper">
+							<div class="search-order-form-btn-wrapper__accept customCheckbox">
+								<label class="search-order-form-btn-wrapper__accept__label">
+									<input type="checkbox" name="conditions-agree" id="conditions-agree" value="on" onclick="toggleAcceptCheckbox()">
+									<span class="search-order-form-btn-wrapper__accept__label__checkbox" id=""></span>
+									{{ 'web.order.form.acceptRule1' | aliasStatic}} <a href="{{ 'web.order.form.acceptRule1Link' | aliasStatic}}" target="_blank">{{ 'web.order.form.acceptRule1Text' | aliasStatic}}</a><br>{{ 'web.order.form.acceptRule2' | aliasStatic}} <a href="{{ 'web.order.form.acceptRule2Link' | aliasStatic}}" target="_blank">{{ 'web.order.form.acceptRule2Text' | aliasStatic}}</a>
+								</label>
+							</div>
+							<button class="disabled btn btn_search btn_formSearch btn_formSearch_js" id="search-order-form-btn" disabled="disabled">
+							{{ 'web.order.form.searchButton' | aliasStatic}}
+							</button>
+						</div>
+
+                    </div>
+
+                  </div>
+                </div>
+
+                <div class="search-order-form-footer" ng-bind-html=" 'web.order.form.footer' | aliasStatic"></div>
+
+              </form>
+            </div>
+
+
+          </div>
+        </div>
+
+        <p ng-if="vm.orderLoaded" class="invoiceBack">
+          <a href="#{{$root.ROUTES.SEARCH_ORDER}}" class="back">
+            {{ 'web.order.form.backToSearchOrder' | aliasStatic}}
+          </a>
+        </p>
+
+        <order ng-if="vm.pnr && vm.lastName && vm.searchOrderForm.$valid" pnr="vm.pnr" lastname="vm.lastName"></order>
+
+      </div>
+    </div>
+  </div>
+
+  <div class="push"></div>
+
+</section>
+
+<app-footer ng-if="!vm.loading"></app-footer>

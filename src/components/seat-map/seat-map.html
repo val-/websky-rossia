@@ -1,0 +1,32 @@
+<div class="seatMap" ng-class="{ control_disabled: vm.locked }">
+    <div class="seatMap__i">
+        <div ng-repeat="deck in vm.seatMap.decks" class="planeBody deck-code-{{deck.code}}">
+            <div ng-if="deck.code" class="deck-label deck-label-{{deck.code}}" ng-bind-html="'web.seatMap.deckLabel.' | aliasWithPrefix:deck.code"></div>
+            <div class="planeBody__i">
+                <table ng-repeat="cabin in deck.cabins" class="cabin-code-{{cabin.code}}">
+                    <tbody>
+
+                        <tr ng-repeat="row in cabin.rows" class="row-number-{{row.number}} {{ vm.getRowSeatsUniqueCssPropertiesClasses(row.items) }}" ng-class="{ wingsStart: row.wingsStart, atWing: row.atWing, wingsEnd: row.wingsEnd }">
+							<td class="row-num">{{ row.number }}</td>
+							<td ng-repeat="item in row.items">
+								<div ng-if="item.type == 'chair'" class="seat seat-cost-{{ vm.replaceDots(item.cost || 'none') }} seat-rfisc-{{ item.rfisc || 'none' }} {{ vm.getSeatCssPropertiesClasses(item) }}" ng-click="vm.setPassengerFlightSeat(item, cabin.allowed, row.number)"
+                                    ng-class="{ seat_disabled: (!item.free || !item.available || !cabin.allowed), active: vm.isSelectedByActivePassenger(row.number + item.number), selectedByOrderPassenger: vm.isSelectedByOrderPassenger(row.number + item.number) }">
+										<span class="seat-number">{{ item.number }}</span>
+                                        <div ng-if="item.free && item.available && cabin.allowed" class="seatName">
+                                            {{ row.number }}{{ item.number }}
+                                            <wrap ng-if="item.cost">
+                                                {{' - '}}
+                                                <wrap ng-bind-html="{ value: item.cost, currency: item.currency } | price"></wrap>
+                                            </wrap>
+                                        </div>
+                                </div>
+
+                            </td>
+                        </tr>
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
