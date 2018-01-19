@@ -329,6 +329,10 @@
 
                                             </span>
                                             <a ng-if="selectedPassengerFlightMeal" href ng-click="vm.removePassengerFlightMeal(passengerNum, flightNum)" class="btn-remove">
+                                                <div style="display: none">
+                                                    <span>{{passengerNum}}</span>
+                                                    <span>{{flightNum}}</span>
+                                                </div>
                                                 <span class="infoBoxWrap">
                                                     <i class="icon_remove"></i>
                                                     <span class="infoBox">
@@ -360,11 +364,15 @@
         </div>
     </div>
     <popup-meal menu="vm.mealMenu"
-        passenger="vm.orderInfo.passengers[vm.selectedPassenger]"
-        flight="vm.orderInfo.plainFlights[vm.selectedFlight]"
-        handler="vm.setPassengerFlightMeal"
-        path="vm.mealImagesPath"
-        subgroups="vm.service.subgroups">
+                passenger="vm.orderInfo.passengers[vm.selectedPassenger]"
+                next-passenger="vm.orderInfo.passengers[vm.selectedPassenger + 1]"
+                prev-passenger="vm.orderInfo.passengers[vm.selectedPassenger - 1]"
+                switch-next="vm.selectFlightPassenger(vm.selectedFlight, vm.selectedPassenger + 1)"
+                switch-prev="vm.selectFlightPassenger(vm.selectedFlight, vm.selectedPassenger - 1)"
+                flight="vm.orderInfo.plainFlights[vm.selectedFlight]"
+                handler="vm.setPassengerFlightMeal"
+                path="vm.mealImagesPath"
+                subgroups="vm.service.subgroups">
     </popup-meal>
 
 </div>

@@ -16,8 +16,8 @@
                 <div class="slick-track" role="listbox">
 
                     <div class="item slick-slide slick-current slick-active">
-                        <div class="itemSwiper">
-                            <span class="itemSwiper-prev">
+                        <div class="itemSwiper" ng-if="vm.nextPassenger || vm.prevPassenger">
+                            <span class="itemSwiper-prev" ng-if="vm.prevPassenger" ng-click="vm.switchPrev()">
                                 {{ 'web.extraServices.meal.itemSwiper.prev' | aliasStatic }}
                             </span>
                             <ol>
@@ -27,7 +27,7 @@
                                 <li></li>
                                 <li></li>
                             </ol>
-                            <span class="itemSwiper-next">
+                            <span class="itemSwiper-next" ng-if="vm.nextPassenger" ng-click="vm.switchNext()">
                                 {{ 'web.extraServices.meal.itemSwiper.next' | aliasStatic }}
                             </span>
                         </div>
@@ -39,18 +39,23 @@
                             </div>
                         </div>
                         <div class="itemOrderInfo">
-                            <span>Каша овсяная на молоке (250 г.)</span>
-                            <span>200 <span class="currency_sign">₽</span></span>
-                            <a href class="btn-remove">
-                                <span class="infoBoxWrap">
-                                    <i class="icon_remove"></i>
-                                    <span class="infoBox">
-                                        <span class="infoBox__i">
-                                            {{ 'web.extraServices.meal.cancelByPassengerSegment' | aliasStatic }}
+                            <div ng-repeat="(subgroupNum, subgroup) in vm.mealMenu">
+                                <div ng-repeat="mealItem in subgroup"
+                                     ng-if="mealItem.active" class="itemOrderInfo-row">
+                                    <span>{{ mealItem.title }}</span>
+                                    <span ng-bind-html="{ value: mealItem.price, currency: mealItem.currency } | price"></span>
+                                    <a href class="btn-remove" ng-click="mealItem.active = !mealItem.active">
+                                        <span class="infoBoxWrap">
+                                            <i class="icon_remove"></i>
+                                            <span class="infoBox">
+                                                <span class="infoBox__i">
+                                                    {{ 'web.extraServices.meal.cancelByPassengerSegment' | aliasStatic }}
+                                                </span>
+                                            </span>
                                         </span>
-                                    </span>
-                                </span>
-                            </a>
+                                    </a>
+                                </div>
+                            </div>
                         </div>
 
                         <div ng-show=" vm.subgroups.length > 1 " class="foodSortSelect_wrap">
