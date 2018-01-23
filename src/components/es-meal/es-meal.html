@@ -77,8 +77,9 @@
                                     {{ passenger.lastName }} {{ passenger.firstName }}
                                 </td>
                             </tr>
-                            <tr ng-repeat-start="(flightNum, flight) in vm.orderInfo.plainFlights"
-                                ng-if="vm.service.availableBySegments[flightNum]" class="contentRow">
+                            <!-- <tr ng-repeat-start="(flightNum, flight) in vm.orderInfo.plainFlights"
+                                ng-if="vm.service.availableBySegments[flightNum]" class="contentRow"> -->
+                               <tr ng-repeat-start="(flightNum, flight) in vm.orderInfo.plainFlights" class="contentRow">
                                 <td class="firstCol">
                                     <div style="display: none;">
                                       {{vm.service.availableBySegments}}
@@ -93,12 +94,16 @@
                                         </div>
                                         <geo-marker prefix="arr__point" key="es-meal" city="flight.destinationcity"  cityname="flight.destinationcityName" port="flight.destinationport"  portname="flight.destinationportName"></geo-marker>
                                     </div>
+                                    <div class="firstCol__text-unavailable" ng-if="!vm.service.availableBySegments[flightNum]">
+                                      недоступно
+                                    </div>
                                 </td>
                                 <td ng-repeat="(passengerNum, passenger) in vm.orderInfo.passengers"
                                     ng-if="vm.service.availableByPassengerSegments[passengerNum]"
                                     ng-class="{ active: vm.selectedFlight == flightNum && vm.selectedPassenger == passengerNum }"
                                      ng-init="selectedPassengerFlightMeal = vm.getSelectedPassengerFlightMeal(passengerNum, flightNum)">
-                                    <a href ng-click="vm.selectFlightPassenger(flightNum, passengerNum)"
+                                    <a href ng-if="vm.service.availableBySegments[flightNum]"
+                                        ng-click="vm.selectFlightPassenger(flightNum, passengerNum)"
                                         class="passengersTable__link"
                                         ng-class="{ passengersTable__link_empty: !selectedPassengerFlightMeal, passengersTable__link_select: (!selectedPassengerFlightMeal && vm.selectedFlight == flightNum && vm.selectedPassenger == passengerNum) }">
                                         <wrap ng-if="!selectedPassengerFlightMeal && (vm.selectedFlight == flightNum && vm.selectedPassenger == passengerNum)">
@@ -128,7 +133,7 @@
                                 </td>
                             </tr>
 
-                            <tr ng-repeat-end class="contentServiceRow">
+                            <tr ng-repeat-end class="contentServiceRow" ng-if="vm.service.availableBySegments[flightNum]">
                                 <td ng-if="flightNum == vm.selectedFlight" class="firstCol"></td>
                                 <td ng-if="flightNum == vm.selectedFlight" colspan="{{ vm.getAvailablePassengersCount(vm.service.availableByPassengerSegments) }}">
                                     <div class="food_container">

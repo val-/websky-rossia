@@ -4,21 +4,22 @@
 		<div class="seatSlider__i slick-initialized slick-slider">
 
 			<div class="slick-list draggable">
-                <div class="slick-track" role="listbox">
-                    <div class="item slick-slide slick-cloned">
+				<div class="slick-track" role="listbox">
+					<div class="item slick-slide slick-cloned">
 
-				        <div class="itemTitle seatPopupTitle">
-					        <div class="itemTitle__i">
-                                <p>
-									<geo-marker prefix="dep__point" key="popup-seat" city="vm.orderInfo.plainFlights[vm.selectedFlight].origincity"  cityname="vm.orderInfo.plainFlights[vm.selectedFlight].origincityName" port="vm.orderInfo.plainFlights[vm.selectedFlight].originport"  portname="vm.orderInfo.plainFlights[vm.selectedFlight].originportName"></geo-marker>
-									 –
-									<geo-marker prefix="arr__point" key="popup-seat" city="vm.orderInfo.plainFlights[vm.selectedFlight].destinationcity"  cityname="vm.orderInfo.plainFlights[vm.selectedFlight].destinationcityName" port="vm.orderInfo.plainFlights[vm.selectedFlight].destinationport"  portname="vm.orderInfo.plainFlights[vm.selectedFlight].destinationportName"></geo-marker>
-                                </p>
-                                <p>
-                                    {{ vm.orderInfo.passengers[vm.selectedPassenger].lastName }} {{ vm.orderInfo.passengers[vm.selectedPassenger].firstName }}
-                                </p>
-					        </div>
-				        </div>
+						<div class="itemTitle seatPopupTitle">
+							<div class="itemTitle__i">
+								<p>
+									<geo-marker prefix="dep__point" key="popup-seat" city="vm.orderInfo.plainFlights[vm.selectedFlight].origincity" cityname="vm.orderInfo.plainFlights[vm.selectedFlight].origincityName" port="vm.orderInfo.plainFlights[vm.selectedFlight].originport" portname="vm.orderInfo.plainFlights[vm.selectedFlight].originportName"></geo-marker>
+									–
+									<geo-marker prefix="arr__point" key="popup-seat" city="vm.orderInfo.plainFlights[vm.selectedFlight].destinationcity" cityname="vm.orderInfo.plainFlights[vm.selectedFlight].destinationcityName" port="vm.orderInfo.plainFlights[vm.selectedFlight].destinationport"
+									  portname="vm.orderInfo.plainFlights[vm.selectedFlight].destinationportName"></geo-marker>
+								</p>
+								<p>
+									{{ vm.orderInfo.passengers[vm.selectedPassenger].lastName }} {{ vm.orderInfo.passengers[vm.selectedPassenger].firstName }}
+								</p>
+							</div>
+						</div>
 						<div class="info seatPopupInfo">
 							<div class="info__i">
 								<p class="plane">
@@ -30,16 +31,13 @@
 								<div class="seatInfo">
 									<ul>
 										<li class="free">
-											<span class="seat-place"></span>
-											{{ 'web.extraServices.seat.free' | aliasStatic}}
+											<span class="seat-place"></span> {{ 'web.extraServices.seat.free' | aliasStatic}}
 										</li>
 										<li class="selected">
-											<span class="seat-place"></span>
-											{{ 'web.extraServices.seat.selected' | aliasStatic}}
+											<span class="seat-place"></span> {{ 'web.extraServices.seat.selected' | aliasStatic}}
 										</li>
 										<li class="disabled">
-											<span class="seat-place"></span>
-											{{ 'web.extraServices.seat.disabled' | aliasStatic}}
+											<span class="seat-place"></span> {{ 'web.extraServices.seat.disabled' | aliasStatic}}
 										</li>
 										<li ng-repeat="rfiscsPriceItem in vm.itemsByPassengerSegments[vm.selectedPassenger][vm.selectedFlight][0] track by $index" class="rfiscs-seat-label rfiscs-seat-label-{{ rfiscsPriceItem.rfisc }}">
 											<span class="seat-place seat-rfisc-{{ rfiscsPriceItem.rfisc }}"></span>
@@ -54,40 +52,26 @@
 								</div>
 							</div>
 						</div>
-        				<div class="seatSelect seatPopupSeatMap">
-        					
-                            <seat-map ng-if="vm.seatMap"
-                                map="vm.seatMap"
-                                passenger="vm.selectedPassenger"
-                                flight="vm.selectedFlight"
-                                selected="vm.selectedSeatsByPassengerSegments"
-								locked="vm.locked"
-                                set="vm.setPassengerFlightSeat"
-								issued="vm.issuedSeatsByPassengerSegments">
-                            </seat-map>
+						<div class="seatSelect seatPopupSeatMap">
 
-        				</div>
+							<seat-map ng-if="vm.seatMap" map="vm.seatMap" passenger="vm.selectedPassenger" flight="vm.selectedFlight" selected="vm.selectedSeatsByPassengerSegments" locked="vm.locked" set="vm.setPassengerFlightSeat" issued="vm.issuedSeatsByPassengerSegments">
+							</seat-map>
+
+						</div>
 						<div class="seatPopupBottom">
-							<div class="seatPopupBottom__selectedInfo__wrapper"
-								 ng-repeat="(flightNum, flight) in vm.orderInfo.plainFlights"
-								 ng-if="vm.selectedFlight == flightNum">
-								<div class="seatPopupBottom__selectedInfo"
-									 ng-repeat="(passengerNum, passenger) in vm.orderInfo.passengers"
-									 ng-if="vm.selectedPassenger == passengerNum">
+							<div class="seatPopupBottom__selectedInfo__wrapper" ng-repeat="(flightNum, flight) in vm.orderInfo.plainFlights" ng-if="vm.selectedFlight == flightNum">
+								<div class="seatPopupBottom__selectedInfo" ng-repeat="(passengerNum, passenger) in vm.orderInfo.passengers" ng-if="vm.selectedPassenger == passengerNum">
 									<div class="passengersTable__segment-passengers__passenger__info__seat">
 										<div class="passengersTable__segment-passengers__passenger__info__seat__text">
 											{{ 'web.extraServices.seat.seatText' | aliasStatic}}
 										</div>
-										<div class="passengersTable__segment-passengers__passenger__info__seat__number"
-											 ng-if="vm.selectedSeatsByPassengerSegments[passengerNum][flightNum]">
+										<div class="passengersTable__segment-passengers__passenger__info__seat__number" ng-if="vm.selectedSeatsByPassengerSegments[passengerNum][flightNum]">
 											{{ vm.selectedSeatsByPassengerSegments[passengerNum][flightNum].value }}
 										</div>
-										<div class="passengersTable__segment-passengers__passenger__info__seat__number"
-											 ng-if="vm.issuedSeatsByPassengerSegments[passengerNum][flightNum]">
+										<div class="passengersTable__segment-passengers__passenger__info__seat__number" ng-if="vm.issuedSeatsByPassengerSegments[passengerNum][flightNum]">
 											{{ vm.issuedSeatsByPassengerSegments[passengerNum][flightNum].value }}
 										</div>
-										<div class="passengersTable__segment-passengers__passenger__info__seat__no-number"
-											 ng-if="!vm.selectedSeatsByPassengerSegments[passengerNum][flightNum] && !vm.issuedSeatsByPassengerSegments[passengerNum][flightNum]">
+										<div class="passengersTable__segment-passengers__passenger__info__seat__no-number" ng-if="!vm.selectedSeatsByPassengerSegments[passengerNum][flightNum] && !vm.issuedSeatsByPassengerSegments[passengerNum][flightNum]">
 											{{ 'web.extraServices.seat.noSeatSelected' | aliasStatic}}
 										</div>
 									</div>
@@ -95,45 +79,37 @@
 										<div class="passengersTable__segment-passengers__passenger__info__price__text">
 											{{ 'web.extraServices.seat.seatPrice' | aliasStatic}}
 										</div>
-										<div class="passengersTable__segment-passengers__passenger__info__price__money"
-											 ng-if="vm.selectedSeatsByPassengerSegments[passengerNum][flightNum]"
-											 ng-bind-html="{ value: vm.selectedSeatsByPassengerSegments[passengerNum][flightNum].totalPrice, currency: vm.selectedSeatsByPassengerSegments[passengerNum][flightNum].currency } | price">
+										<div class="passengersTable__segment-passengers__passenger__info__price__money" ng-if="vm.selectedSeatsByPassengerSegments[passengerNum][flightNum]" ng-bind-html="{ value: vm.selectedSeatsByPassengerSegments[passengerNum][flightNum].totalPrice, currency: vm.selectedSeatsByPassengerSegments[passengerNum][flightNum].currency } | price">
 										</div>
-										<div class="passengersTable__segment-passengers__passenger__info__price__money"
-											 ng-if="vm.issuedSeatsByPassengerSegments[passengerNum][flightNum]"
-											 ng-bind-html="{ value: vm.issuedSeatsByPassengerSegments[passengerNum][flightNum].totalPrice, currency: vm.issuedSeatsByPassengerSegments[passengerNum][flightNum].currency } | price">
+										<div class="passengersTable__segment-passengers__passenger__info__price__money" ng-if="vm.issuedSeatsByPassengerSegments[passengerNum][flightNum]" ng-bind-html="{ value: vm.issuedSeatsByPassengerSegments[passengerNum][flightNum].totalPrice, currency: vm.issuedSeatsByPassengerSegments[passengerNum][flightNum].currency } | price">
 										</div>
-										<div class="passengersTable__segment-passengers__passenger__info__price__money"
-											 ng-if="!vm.selectedSeatsByPassengerSegments[passengerNum][flightNum] && !vm.issuedSeatsByPassengerSegments[passengerNum][flightNum]">
+										<div class="passengersTable__segment-passengers__passenger__info__price__money" ng-if="!vm.selectedSeatsByPassengerSegments[passengerNum][flightNum] && !vm.issuedSeatsByPassengerSegments[passengerNum][flightNum]">
 											0 <span class="currency_sign">₽</span>
 										</div>
 									</div>
 								</div>
 							</div>
 							<div class="seatPopupBottom__buttons">
-								<div class="btnRow seatPopupBottom__buttons__deselectSeat"
-									 ng-if="!vm.selectedSeatsByPassengerSegments[vm.selectedPassenger][vm.selectedFlight] && !vm.issuedSeatsByPassengerSegments[vm.selectedPassenger][vm.selectedFlight]">
+								<div class="btnRow seatPopupBottom__buttons__deselectSeat" ng-if="!vm.selectedSeatsByPassengerSegments[vm.selectedPassenger][vm.selectedFlight] && !vm.issuedSeatsByPassengerSegments[vm.selectedPassenger][vm.selectedFlight]">
 									<a href ng-click="vm.close();" class="btn btn_ready closePopup_js">
 										{{ 'web.popupSeat.clear' | aliasStatic}}
 									</a>
 								</div>
-								<div class="btnRow seatPopupBottom__buttons__deselectSeat"
-									 ng-if="vm.selectedSeatsByPassengerSegments[vm.selectedPassenger][vm.selectedFlight]">
+								<div class="btnRow seatPopupBottom__buttons__deselectSeat" ng-if="vm.selectedSeatsByPassengerSegments[vm.selectedPassenger][vm.selectedFlight]">
 									<a href ng-click="vm.close(); vm.removePassengerFlightSeat(vm.selectedPassenger, vm.selectedFlight);" class="btn btn_ready closePopup_js">
 										{{ 'web.popupSeat.clear' | aliasStatic}}
 									</a>
 								</div>
-								<div class="btnRow seatPopupBottom__buttons__close"
-									 ng-if="vm.selectedSeatsByPassengerSegments[vm.selectedPassenger][vm.selectedFlight] || vm.issuedSeatsByPassengerSegments[vm.selectedPassenger][vm.selectedFlight]">
+								<div class="btnRow seatPopupBottom__buttons__close" ng-if="vm.selectedSeatsByPassengerSegments[vm.selectedPassenger][vm.selectedFlight] || vm.issuedSeatsByPassengerSegments[vm.selectedPassenger][vm.selectedFlight]">
 									<a href ng-click="vm.close()" class="btn btn_ready closePopup_js">
 										{{ 'web.popupSeat.ok' | aliasStatic}}
 									</a>
 								</div>
 							</div>
 						</div>
-			        </div>
-                </div>
-            </div>
+					</div>
+				</div>
+			</div>
 
 		</div>
 	</div>
