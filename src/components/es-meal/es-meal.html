@@ -95,7 +95,7 @@
                                         <geo-marker prefix="arr__point" key="es-meal" city="flight.destinationcity"  cityname="flight.destinationcityName" port="flight.destinationport"  portname="flight.destinationportName"></geo-marker>
                                     </div>
                                     <div class="firstCol__text-unavailable" ng-if="!vm.service.availableBySegments[flightNum]">
-                                      недоступно
+                                      {{ 'web.extraServices.meal.unavailable' | aliasStatic }}
                                     </div>
                                 </td>
                                 <td ng-repeat="(passengerNum, passenger) in vm.orderInfo.passengers"
