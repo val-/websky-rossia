@@ -334,14 +334,6 @@
                     </wrap>
                   </a>
 
-                  <div style="display: none">
-                    {{ vm.orderInfo }}
-                  </div>
-
-                  <div style="display: none">
-                    {{vm.mode}}
-                  </div>
-
                   <div ng-if="!vm.service.availableByPassengerSegments[passengerNum]" class="passengersTable__segment-passengers__passenger__orderInfo">
 
                     <wrap ng-if="vm.orderInfo[ 'all' + 'ExtraServicesByPassengers' ].length">

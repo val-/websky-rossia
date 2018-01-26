@@ -27,7 +27,7 @@
 					 class="included-service__passenger__services__segment"
 					 ng-if="vm.orderInfo[ vm.mode + 'ExtraServicesByPassengers' ][passengerNumber].passengerSegmentServices[segmentNumber]">
 					<div ng-repeat="passengerSegmentService in vm.orderInfo[ vm.mode + 'ExtraServicesByPassengers' ][passengerNumber].passengerSegmentServices[segmentNumber]"
-						 ng-if="extraService.code == passengerSegmentService.code">	
+						 ng-if="extraService.code == passengerSegmentService.code">
 						<div class="included-service__passenger__services__segment__code">
 							{{ 'web.orderInfo.extraServices.flight' | aliasStatic}} {{ segment.company.code }}-{{ segment.racenumber }}
 						</div>
@@ -36,7 +36,7 @@
 								<div class="included-service__passenger__services__segment__route__departure__city">
 									{{ segment.origincityName }}
 								</div>
-								<div ng-if="segment.originportName && segment.origincityName !== segment.originportName" 
+								<div ng-if="segment.originportName && segment.origincityName !== segment.originportName"
 									 class="included-service__passenger__services__segment__route__departure__port">
 									{{ segment.originportName }}
 								</div>
@@ -46,7 +46,7 @@
 								<div class="included-service__passenger__services__segment__route__arrival__city">
 									{{ segment.destinationcityName }}
 								</div>
-								<div ng-if="segment.destinationportName && segment.destinationcityName !== segment.destinationportName" 
+								<div ng-if="segment.destinationportName && segment.destinationcityName !== segment.destinationportName"
 									 class="included-service__passenger__services__segment__route__arrival__port">
 									{{ segment.destinationportName }}
 								</div>
@@ -70,7 +70,7 @@
 							</div>
 							<div class="included-service__passenger__services__segment__service__price"
 								 ng-if="passengerSegmentService.serviceItem.status !== 'ISSUED_WITH_EMD'"
-								 ng-bind-html="{ value: passengerSegmentService.serviceItem.totalPrice, currency: passengerSegmentService.serviceItem.currency } | price"> 
+								 ng-bind-html="{ value: passengerSegmentService.serviceItem.totalPrice, currency: passengerSegmentService.serviceItem.currency } | price">
 							</div>
 							<div class="included-service__passenger__services__segment__service__price included-service__passenger__services__segment__service__price_issued"
 								 ng-if="passengerSegmentService.serviceItem.status == 'ISSUED_WITH_EMD'">
@@ -82,7 +82,7 @@
 			</div>
 		</div>
 	</div>
-	
+
 
 
     <wrap ng-if="vm.orderInfo[ vm.mode + 'ExtraServicesForAllPassengers' ].length">
@@ -129,7 +129,7 @@
                                         </span>
                                     </li>
                                 </wrap>
-                            </ul>
+                            </ul> 
                         </div>
                     </wrap>
                 </wrap>
