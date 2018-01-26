@@ -27,13 +27,6 @@
                 {{ vm.orderInfo }}
               </div>
               <ol>
-                <!-- (passengerNum, passenger) in vm.orderInfo.passengers  //\\ vm.removePassengerFlightMeal(passengerNum, flightNum) -->
-                <li style="display: none">
-                  passengerNum - {{ vm.passenger }}
-                </li>
-                <li style="display: none">
-                  flightNum - {{ vm.flight }}
-                </li>
               </ol>
               <span class="itemSwiper-next" ng-if="vm.nextPassenger && vm.nextPassenger.hasSeats" ng-click="vm.switchNext()">
                                 {{ 'web.extraServices.meal.itemSwiper.next' | aliasStatic }}
