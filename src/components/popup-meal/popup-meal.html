@@ -1,108 +1,113 @@
 <div class="popup popup_selectFood" id="popupMeal" style="display: none;">
-    <div class="title">
-        <div class="title__i">
-            <p>
-                <geo-marker prefix="dep__point" key="es-meal" city="vm.flight.origincity"  cityname="vm.flight.origincityName" port="vm.flight.originport"  portname="vm.flight.originportName"></geo-marker>
-                –
-                <geo-marker prefix="arr__point" key="es-meal" city="vm.flight.destinationcity"  cityname="vm.flight.destinationcityName" port="vm.flight.destinationport"  portname="vm.flight.destinationportName"></geo-marker>
-            </p>
-            <a href ng-click="vm.close()" class="closePopup closePopup_js"></a>
-        </div>
+  <div class="title">
+    <div class="title__i">
+      <p>
+        <geo-marker prefix="dep__point" key="es-meal" city="vm.flight.origincity" cityname="vm.flight.origincityName" port="vm.flight.originport" portname="vm.flight.originportName"></geo-marker>
+        –
+        <geo-marker prefix="arr__point" key="es-meal" city="vm.flight.destinationcity" cityname="vm.flight.destinationcityName" port="vm.flight.destinationport" portname="vm.flight.destinationportName"></geo-marker>
+      </p>
+      <a href ng-click="vm.close()" class="closePopup closePopup_js"></a>
     </div>
-    <div class="foodSlider">
-        <div class="foodSlider__i slick-initialized slick-slider">
+  </div>
+  <div class="foodSlider">
+    <div class="foodSlider__i slick-initialized slick-slider">
 
-            <div aria-live="polite" class="slick-list draggable">
-                <div class="slick-track" role="listbox">
+      <div aria-live="polite" class="slick-list draggable">
+        <div class="slick-track" role="listbox">
 
-                    <div class="item slick-slide slick-current slick-active">
-                        <div class="itemSwiper" ng-if="vm.nextPassenger || vm.prevPassenger">
-                            <span class="itemSwiper-prev" ng-if="vm.prevPassenger" ng-click="vm.switchPrev()">
+          <div class="item slick-slide slick-current slick-active">
+            <div class="itemSwiper" ng-if="vm.nextPassenger || vm.prevPassenger">
+              <span class="itemSwiper-prev" ng-if="vm.prevPassenger && vm.prevPassenger.hasSeats" ng-click="vm.switchPrev()">
+                              {{ 'web.extraServices.meal.itemSwiper.prev' | aliasStatic }}
+                          </span>
+              <!-- <span class="itemSwiper-prev" ng-if="vm.prevPassenger" ng-click="vm.switchPrev()">
                                 {{ 'web.extraServices.meal.itemSwiper.prev' | aliasStatic }}
-                            </span>
-                            <ol>
-                                <li class="prevPass"></li>
-                                <li class="active"></li>
-                                <li class="nextPass"></li>
-                                <li></li>
-                                <li></li>
-                            </ol>
-                            <span class="itemSwiper-next" ng-if="vm.nextPassenger" ng-click="vm.switchNext()">
+                            </span> -->
+              <div style="display: none">
+                {{ vm.orderInfo }}
+              </div>
+              <ol>
+                <!-- (passengerNum, passenger) in vm.orderInfo.passengers  //\\ vm.removePassengerFlightMeal(passengerNum, flightNum) -->
+                <li style="display: none">
+                  passengerNum - {{ vm.passenger }}
+                </li>
+                <li style="display: none">
+                  flightNum - {{ vm.flight }}
+                </li>
+              </ol>
+              <span class="itemSwiper-next" ng-if="vm.nextPassenger && vm.nextPassenger.hasSeats" ng-click="vm.switchNext()">
                                 {{ 'web.extraServices.meal.itemSwiper.next' | aliasStatic }}
                             </span>
-                        </div>
-                        <div class="itemTitle">
-                            <div class="itemTitle__i">
-                                <p>
-                                    {{ vm.passenger.lastName }} {{ vm.passenger.firstName }}
-                                </p>
-                            </div>
-                        </div>
-                        <div class="itemOrderInfo">
-                            <div ng-repeat="(subgroupNum, subgroup) in vm.mealMenu">
-                                <div ng-repeat="mealItem in subgroup"
-                                     ng-if="mealItem.active" class="itemOrderInfo-row">
-                                    <span>{{ mealItem.title }}</span>
-                                    <span ng-bind-html="{ value: mealItem.price, currency: mealItem.currency } | price"></span>
-                                    <a href class="btn-remove" ng-click="mealItem.active = !mealItem.active">
-                                        <span class="infoBoxWrap">
-                                            <i class="icon_remove"></i>
-                                            <span class="infoBox">
-                                                <span class="infoBox__i">
-                                                    {{ 'web.extraServices.meal.cancelByPassengerSegment' | aliasStatic }}
-                                                </span>
-                                            </span>
-                                        </span>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div ng-show=" vm.subgroups.length > 1 " class="foodSortSelect_wrap">
-                            <ui-select ng-change="vm.mealMenuSubgroupMobileChange()"
-                                       ng-model="vm.mealMenuSubgroupMobile"
-                                       theme="selectize"
-                                       search-enabled="false"
-                                       required>
-                                <ui-select-match placeholder="{{$select.selected.value ? ('web.meal.subgroup.' | aliasWithPrefix:$select.selected.value) : ( 'web.meal.subgroup.all' | aliasStatic)}}">
-                                    {{$select.selected.value ? ('web.meal.subgroup.' | aliasWithPrefix:$select.selected.value) : ( 'web.meal.subgroup.all' | aliasStatic)}}
-                                </ui-select-match>
-                                <ui-select-choices repeat="subgroupCode.index as subgroupCode in vm.subgroupItems track by $index">
-                                    <div>{{ 'web.meal.subgroup.' | aliasWithPrefix:subgroupCode.value }}</div>
-                                </ui-select-choices>
-                            </ui-select>
-    					</div>
-
-                        <div class="list">
-                            <div class="list__i isotopeGrid">
-
-                                <wrap ng-repeat="(subgroupNum, subgroup) in vm.mealMenu">
-                                    <div ng-repeat="mealItem in subgroup"
-                                        ng-if=" vm.mealMenuSubgroup === subgroupNum || vm.mealMenuSubgroup === false "
-                                        ng-class="{ active: mealItem.active }"
-                                        class="item">
-                                        <a href ng-click=" vm.setPassengerFlightMeal(subgroupNum, mealItem);">
-                                            <div class="img">
-                                                <img ng-src="{{vm.mealImagesPath}}/{{ mealItem.serviceType }}-{{ mealItem.rfisc }}.jpg" alt=""/>
-                                            </div>
-                                            <div class="name">
-                                                <p>{{ mealItem.title }}</p>
-                                                <p class="price" ng-bind-html="{ value: mealItem.price, currency: mealItem.currency } | price"></p>
-                                            </div>
-                                        </a>
-
-                                    </div>
-
-                                </wrap>
-
-                            </div>
-                        </div>
-
+              <!-- <span class="itemSwiper-next" ng-if="vm.nextPassenger && !vm.nextPassenger.hasSeats" ng-click="vm.switchNext()">
+                                {{ 'web.extraServices.meal.itemSwiper.next' | aliasStatic }}
+                            </span> -->
+            </div>
+            <div class="itemTitle">
+              <div class="itemTitle__i">
+                <p>
+                  {{ vm.passenger.lastName }} {{ vm.passenger.firstName }}
+                </p>
+              </div>
+            </div>
+            <div class="itemOrderInfo">
+                <div ng-repeat="(subgroupNum, subgroup) in vm.mealMenu">
+                    <div ng-repeat="mealItem in subgroup"
+                         ng-if="mealItem.active" class="itemOrderInfo-row">
+                        <span>{{ mealItem.title }}</span>
+                        <span ng-bind-html="{ value: mealItem.price, currency: mealItem.currency } | price"></span>
+                        <a href class="btn-remove" ng-click="vm.setPassengerFlightMeal(0, 0)">
+                            <span class="infoBoxWrap">
+                                <i class="icon_remove"></i>
+                                <span class="infoBox">
+                                    <span class="infoBox__i">
+                                        {{ 'web.extraServices.meal.cancelByPassengerSegment' | aliasStatic }}
+                                    </span>
+                                </span>
+                            </span>
+                        </a>
                     </div>
-
                 </div>
             </div>
+            <!-- end itemOrderInfo -->
+
+            <div ng-show=" vm.subgroups.length > 1 " class="foodSortSelect_wrap">
+              <ui-select ng-change="vm.mealMenuSubgroupMobileChange()" ng-model="vm.mealMenuSubgroupMobile" theme="selectize" search-enabled="false" required>
+                <ui-select-match placeholder="{{$select.selected.value ? ('web.meal.subgroup.' | aliasWithPrefix:$select.selected.value) : ( 'web.meal.subgroup.all' | aliasStatic)}}">
+                  {{$select.selected.value ? ('web.meal.subgroup.' | aliasWithPrefix:$select.selected.value) : ( 'web.meal.subgroup.all' | aliasStatic)}}
+                </ui-select-match>
+                <ui-select-choices repeat="subgroupCode.index as subgroupCode in vm.subgroupItems track by $index">
+                  <div>{{ 'web.meal.subgroup.' | aliasWithPrefix:subgroupCode.value }}</div>
+                </ui-select-choices>
+              </ui-select>
+            </div>
+
+            <div class="list">
+              <div class="list__i isotopeGrid">
+
+                <wrap ng-repeat="(subgroupNum, subgroup) in vm.mealMenu">
+                  <div ng-repeat="mealItem in subgroup" ng-if=" vm.mealMenuSubgroup === subgroupNum || vm.mealMenuSubgroup === false " ng-class="{ active: mealItem.active }" class="item">
+                    <a href ng-click="vm.setPassengerFlightMeal(subgroupNum, mealItem)">
+                      <div class="img">
+                        <img ng-src="{{vm.mealImagesPath}}/{{ mealItem.serviceType }}-{{ mealItem.rfisc }}.jpg" alt="" />
+                      </div>
+                      <div class="name">
+                        <p>{{ mealItem.title }}</p>
+                        <p class="price" ng-bind-html="{ value: mealItem.price, currency: mealItem.currency } | price"></p>
+                      </div>
+                    </a>
+
+                  </div>
+
+                </wrap>
+
+              </div>
+            </div>
+
+          </div>
 
         </div>
+      </div>
+
     </div>
+  </div>
 </div>

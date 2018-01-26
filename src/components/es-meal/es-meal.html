@@ -334,10 +334,6 @@
                     </wrap>
                   </a>
 
-                  <!-- <div ng-if="!vm.service.availableByPassengerSegments[passengerNum]">
-                    {{ 'web.serviceStatus.ISSUED_WITH_EMD' | aliasStatic }}
-                  </div> -->
-
                   <div style="display: none">
                     {{ vm.orderInfo }}
                   </div>
@@ -346,100 +342,65 @@
                     {{vm.mode}}
                   </div>
 
-                  <div ng-if="!vm.service.availableByPassengerSegments[passengerNum]"
-                       class="passengersTable__segment-passengers__passenger__orderInfo">
-                    <!-- <grouped-services-list order="vm.orderInfo" mode="all"></grouped-services-list> -->
+                  <div ng-if="!vm.service.availableByPassengerSegments[passengerNum]" class="passengersTable__segment-passengers__passenger__orderInfo">
 
                     <wrap ng-if="vm.orderInfo[ 'all' + 'ExtraServicesByPassengers' ].length">
 
-                        <div ng-repeat="extraService in vm.orderInfo.all_extra_services"
-                    		 class="included-service included-service__{{ extraService.code }}"
-                    		 ng-if="!extraService.empty">
+                      <div ng-repeat="extraService in vm.orderInfo.all_extra_services" class="included-service included-service__{{ extraService.code }}" ng-if="!extraService.empty">
 
-                        <!-- <div class="included-service__total">
+                        <div ng-repeat="(passengerNumber, passenger) in vm.orderInfo.passengers" ng-if="vm.orderInfo[ 'all' + 'ExtraServicesByPassengers' ][passengerNumber] && extraService.passengers[passengerNumber].segments.length" class="included-service__passenger">
 
-                    			<div ng-if="vm.orderInfo['pricesNotIssued'].totalExtraServiceByGroup[extraService.code]"
-                    				 class="included-service__total__info">
-
-                    				<div class="included-service__total__info__text">
-                    					{{ 'web.orderInfo.prices.total' | aliasWithPrefix:(extraService.code | capitalizeFirstLetter) }}
-                    				</div>
-
-                    				<div class="included-service__total__info__price"
-                    					 ng-bind-html="{ value: vm.orderInfo['pricesNotIssued'].totalExtraServiceByGroup[extraService.code], currency: vm.orderInfo['pricesNotIssued'].currency } | price">
-                    				</div>
-
-                    			</div>
-
-                    		</div> -->
-                        <!-- end included-service__total -->
-
-                    		<div ng-repeat="(passengerNumber, passenger) in vm.orderInfo.passengers"
-                    			 ng-if="vm.orderInfo[ 'all' + 'ExtraServicesByPassengers' ][passengerNumber] && extraService.passengers[passengerNumber].segments.length"
-                    			 class="included-service__passenger">
-
-                    			<!-- <div class="included-service__passenger__name">
+                          <!-- <div class="included-service__passenger__name">
                     				{{ passenger.lastName }} {{ passenger.firstName }}
                     			</div> -->
 
-                    			<div ng-if="vm.orderInfo[ 'all' + 'ExtraServicesByPassengers' ][passengerNumber].passengerSegmentServices"
-                    				 class="included-service__passenger__services">
-                    				<div ng-repeat="(segmentNumber, segment) in vm.orderInfo.plainFlights"
-                    					 class="included-service__passenger__services__segment"
-                    					 ng-if="vm.orderInfo[ 'all' + 'ExtraServicesByPassengers' ][passengerNumber].passengerSegmentServices[segmentNumber]">
-                    					<div ng-repeat="passengerSegmentService in vm.orderInfo[ 'all' + 'ExtraServicesByPassengers' ][passengerNumber].passengerSegmentServices[segmentNumber]"
-                    						 ng-if="extraService.code == passengerSegmentService.code">
+                          <div ng-if="vm.orderInfo[ 'all' + 'ExtraServicesByPassengers' ][passengerNumber].passengerSegmentServices" class="included-service__passenger__services">
+                            <div ng-repeat="(segmentNumber, segment) in vm.orderInfo.plainFlights" class="included-service__passenger__services__segment" ng-if="vm.orderInfo[ 'all' + 'ExtraServicesByPassengers' ][passengerNumber].passengerSegmentServices[segmentNumber]">
+                              <div ng-repeat="passengerSegmentService in vm.orderInfo[ 'all' + 'ExtraServicesByPassengers' ][passengerNumber].passengerSegmentServices[segmentNumber]" ng-if="extraService.code == passengerSegmentService.code">
 
-                    						<div class="included-service__passenger__services__segment__service"
-                                     ng-if="passengerSegmentService.serviceItem.status == 'ISSUED_WITH_EMD'">
+                                <div class="included-service__passenger__services__segment__service" ng-if="passengerSegmentService.serviceItem.status == 'ISSUED_WITH_EMD'">
 
-                                  <div ng-class="{ line_through: passengerSegmentService.serviceItem.removed }"
-                    								 title="{{ (passengerSegmentService.serviceItem.removed ? ( 'web.orderInfo.extraServiceRemoved' | aliasStatic) : '') }}"
-                    								 class="included-service__passenger__services__segment__service__text">
+                                  <div ng-class="{ line_through: passengerSegmentService.serviceItem.removed }" title="{{ (passengerSegmentService.serviceItem.removed ? ( 'web.orderInfo.extraServiceRemoved' | aliasStatic) : '') }}" class="included-service__passenger__services__segment__service__text">
 
-                    								<span class="included-service__passenger__services__segment__service__text__value"
-                    									  ng-if="passengerSegmentService.code == 'meal' || passengerSegmentService.code == 'baggage'">
+                                    <span class="included-service__passenger__services__segment__service__text__value" ng-if="passengerSegmentService.code == 'meal' || passengerSegmentService.code == 'baggage'">
                     									{{ passengerSegmentService.serviceItem.title }}
                     								</span>
 
-                    							</div>
+                                  </div>
 
-                    							<div class="included-service__passenger__services__segment__service__price"
-                    								 ng-if="passengerSegmentService.serviceItem.status !== 'ISSUED_WITH_EMD'"
-                    								 ng-bind-html="{ value: passengerSegmentService.serviceItem.totalPrice, currency: passengerSegmentService.serviceItem.currency } | price">
-                    							</div>
+                                  <div class="included-service__passenger__services__segment__service__price" ng-if="passengerSegmentService.serviceItem.status !== 'ISSUED_WITH_EMD'" ng-bind-html="{ value: passengerSegmentService.serviceItem.totalPrice, currency: passengerSegmentService.serviceItem.currency } | price">
+                                  </div>
 
-                    							<div class="included-service__passenger__services__segment__service__price included-service__passenger__services__segment__service__price_issued"
-                    								 ng-if="passengerSegmentService.serviceItem.status == 'ISSUED_WITH_EMD'">
-                    								{{ 'web.serviceStatus.ISSUED_WITH_EMD' | aliasStatic }}
-                    							</div>
+                                  <div class="included-service__passenger__services__segment__service__price included-service__passenger__services__segment__service__price_issued" ng-if="passengerSegmentService.serviceItem.status == 'ISSUED_WITH_EMD'">
+                                    {{ 'web.serviceStatus.ISSUED_WITH_EMD' | aliasStatic }}
+                                  </div>
 
-                    						</div>
+                                </div>
                                 <!-- end included-service__passenger__services__segment__service -->
-                    					</div>
-                    				</div>
-                    			</div>
-                    		</div>
-                    	</div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
 
 
 
-                        <wrap ng-if="vm.orderInfo[ 'all' + 'ExtraServicesForAllPassengers' ].length">
+                      <wrap ng-if="vm.orderInfo[ 'all' + 'ExtraServicesForAllPassengers' ].length">
 
-                            <div class="item">
-                                <div class="item__i">
-                                    <p>
-                                        <strong>
+                        <div class="item">
+                          <div class="item__i">
+                            <p>
+                              <strong>
                                             {{ 'web.orderInfo.extraServicesForAllPassengers' | aliasStatic}}
                                         </strong>
-                                    </p>
-                                    <wrap ng-repeat="orderService in vm.orderInfo[ 'all' + 'ExtraServicesForAllPassengers' ]">
-                                        <p ng-if="orderService.code == 'insurance' && orderService.items[0][0]" ng-bind-html=" 'web.insurance.' | aliasWithPrefix:(orderService.items[0][0].ins + '.' + orderService.items[0][0].tins)"></p>
-                                    </wrap>
-                                </div>
-                            </div>
+                            </p>
+                            <wrap ng-repeat="orderService in vm.orderInfo[ 'all' + 'ExtraServicesForAllPassengers' ]">
+                              <p ng-if="orderService.code == 'insurance' && orderService.items[0][0]" ng-bind-html=" 'web.insurance.' | aliasWithPrefix:(orderService.items[0][0].ins + '.' + orderService.items[0][0].tins)"></p>
+                            </wrap>
+                          </div>
+                        </div>
 
-                        </wrap>
+                      </wrap>
                     </wrap>
 
                   </div>
@@ -451,16 +412,8 @@
       </div>
     </div>
   </div>
-  <popup-meal menu="vm.mealMenu"
-              passenger="vm.orderInfo.passengers[vm.selectedPassenger]"
-              next-passenger="vm.orderInfo.passengers[vm.selectedPassenger + 1]"
-              prev-passenger="vm.orderInfo.passengers[vm.selectedPassenger - 1]"
-              switch-next="vm.selectFlightPassenger(vm.selectedFlight, vm.selectedPassenger + 1)"
-              switch-prev="vm.selectFlightPassenger(vm.selectedFlight, vm.selectedPassenger - 1)"
-              flight="vm.orderInfo.plainFlights[vm.selectedFlight]"
-              handler="vm.setPassengerFlightMeal"
-              path="vm.mealImagesPath"
-              subgroups="vm.service.subgroups">
+  <popup-meal menu="vm.mealMenu" passenger="vm.orderInfo.passengers[vm.selectedPassenger]" next-passenger="vm.orderInfo.passengers[vm.selectedPassenger + 1]" prev-passenger="vm.orderInfo.passengers[vm.selectedPassenger - 1]" switch-next="vm.selectFlightPassenger(vm.selectedFlight, vm.selectedPassenger + 1)"
+    switch-prev="vm.selectFlightPassenger(vm.selectedFlight, vm.selectedPassenger - 1)" flight="vm.orderInfo.plainFlights[vm.selectedFlight]" handler="vm.setPassengerFlightMeal" path="vm.mealImagesPath" subgroups="vm.service.subgroups">
   </popup-meal>
   <!-- <popup-meal-rossiya menu="vm.mealMenu"
                         passenger="vm.orderInfo.passengers[vm.selectedPassenger]"
@@ -476,5 +429,6 @@
                         path="vm.mealImagesPath"
                         subgroups="vm.service.subgroups">
     </popup-meal-rossiya> -->
+
 
 </div>
