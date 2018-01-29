@@ -22,24 +22,21 @@
           <div class="item slick-slide slick-current slick-active">
             <!-- itemSwiper -->
             <div class="itemSwiper" ng-if="vm.nextPassenger || vm.prevPassenger">
-              <!-- <span class="itemSwiper-prev" ng-if="vm.prevPassenger" ng-click="vm.switchPrev()">
-                                {{ 'web.extraServices.meal.itemSwiper.prev' | aliasStatic }}
-                            </span> -->
-              <span class="itemSwiper-prev" ng-if="vm.prevPassenger && vm.prevPassenger.hasSeats" ng-click="vm.switchPrev()">
-                              {{ 'web.extraServices.meal.itemSwiper.prev' | aliasStatic }}
-                            </span>
+
+              <span class="itemSwiper-prev" ng-if="vm.prevPassenger" ng-click="vm.switchPrev()">
+                  {{ 'web.extraServices.meal.itemSwiper.prev' | aliasStatic }}
+              </span>
+
               <ol>
-                <li ng-repeat="(num, pax) in vm.passengers" ng-class="{
-                                        prevPass:vm.currentPassengerIndex - 1 == num,
-                                        active:vm.currentPassengerIndex == num,
-                                        nextPass: vm.currentPassengerIndex + 1 == num}"></li>
+
+                <li ng-repeat="(num, pax) in vm.passengers" ng-class="{ prevPass:vm.currentPassengerIndex - 1 == num, active:vm.currentPassengerIndex == num, nextPass: vm.currentPassengerIndex + 1 == num}"></li>
+
               </ol>
-              <!-- <span class="itemSwiper-next" ng-if="vm.nextPassenger" ng-click="vm.switchNext()">
-                                {{ 'web.extraServices.meal.itemSwiper.next' | aliasStatic }}
-                            </span> -->
-              <span class="itemSwiper-next" ng-if="vm.nextPassenger && vm.nextPassenger.hasSeats" ng-click="vm.switchNext()">
-                              {{ 'web.extraServices.meal.itemSwiper.next' | aliasStatic }}
-                            </span>
+
+              <span class="itemSwiper-next" ng-if="vm.nextPassenger" ng-click="vm.switchNext()">
+                  {{ 'web.extraServices.meal.itemSwiper.next' | aliasStatic }}
+              </span>
+
             </div>
             <!-- end itemSwiper -->
             <!-- itemTitle -->
@@ -116,6 +113,7 @@
     </div>
 
   </div>
+  <!-- foodSlider-footer -->
   <div class="foodSlider-footer">
     <div class="foodSlider-footer__text">
       {{ 'web.extraServices.meal.footerText' | aliasStatic}}
@@ -126,4 +124,5 @@
       </a>
     </div>
   </div>
+  <!-- end foodSlider-footer -->
 </div>
