@@ -80,9 +80,6 @@
                                 ng-if="vm.service.availableBySegments[flightNum]" class="contentRow"> -->
               <tr ng-repeat-start="(flightNum, flight) in vm.orderInfo.plainFlights" class="contentRow">
                 <td class="firstCol">
-                  <div style="display: none;">
-                    {{vm.service.availableBySegments}}
-                  </div>
                   <div class="date">
                     {{ flight.date | formatDate: 'D MMMM, dd'}}
                   </div>
@@ -94,9 +91,9 @@
                     <geo-marker prefix="arr__point" key="es-meal" city="flight.destinationcity" cityname="flight.destinationcityName" port="flight.destinationport" portname="flight.destinationportName"></geo-marker>
                   </div>
 
-                  <!-- <div class="firstCol__text-unavailable" ng-if="!vm.service.availableBySegments[flightNum]">
+                  <div class="firstCol__text-unavailable" ng-if="!vm.service.availableBySegments[flightNum]">
                     {{ 'web.extraServices.meal.unavailable' | aliasStatic }}
-                  </div> -->
+                  </div>
 
 
                   <!--  -->
@@ -188,18 +185,35 @@
                       {{ selectedPassengerFlightMeal.title }}
                     </wrap>
                   </a>
-                  <span ng-if="selectedPassengerFlightMeal" class="passengersTable__priceSeat" ng-bind-html="{ value: selectedPassengerFlightMeal.totalPrice, currency: selectedPassengerFlightMeal.currency } | price">
-                                    </span>
+
+                  <!-- <span ng-if="selectedPassengerFlightMeal"
+                        class="passengersTable__priceSeat"
+                        ng-bind-html="{ value: selectedPassengerFlightMeal.totalPrice, currency: selectedPassengerFlightMeal.currency } | price"></span>
                   <a ng-if="selectedPassengerFlightMeal" href ng-click="vm.removePassengerFlightMeal(passengerNum, flightNum)" class="btn-remove">
-                                        <span class="infoBoxWrap">
-                                            <i class="icon_remove"></i>
-                                            <span class="infoBox">
-                                                <span class="infoBox__i">
-                                                    {{ 'web.extraServices.meal.cancelByPassengerSegment' | aliasStatic }}
-                                                </span>
-                                            </span>
-                                        </span>
-                                    </a>
+                    <span class="infoBoxWrap">
+                      <i class="icon_remove"></i>
+                      <span class="infoBox">
+                        <span class="infoBox__i">
+                          {{ 'web.extraServices.meal.cancelByPassengerSegment' | aliasStatic }}
+                        </span>
+                      </span>
+                    </span>
+                  </a> -->
+                  <span ng-if="selectedPassengerFlightMeal"
+                        class="passengersTable__priceSeat">
+                    <span ng-bind-html="{ value: selectedPassengerFlightMeal.totalPrice, currency: selectedPassengerFlightMeal.currency } | price"></span>
+                    <a ng-if="selectedPassengerFlightMeal" href ng-click="vm.removePassengerFlightMeal(passengerNum, flightNum)" class="btn-remove">
+                      <span class="infoBoxWrap">
+                        <i class="icon_remove"></i>
+                        <span class="infoBox">
+                          <span class="infoBox__i">
+                            {{ 'web.extraServices.meal.cancelByPassengerSegment' | aliasStatic }}
+                          </span>
+                        </span>
+                      </span>
+                    </a>
+                  </span>
+
                 </td>
               </tr>
 
@@ -371,9 +385,9 @@
                   </div>
 
                   <div class="passengersTable__segment__route__plane">
-                    <!-- <span ng-if="!vm.service.availableBySegments[flightNum]">
+                    <span ng-if="!vm.service.availableBySegments[flightNum]">
                       {{ 'web.extraServices.meal.plane' | aliasStatic}}
-                    </span> -->
+                    </span>
                   </div>
 
                 </div>
@@ -469,21 +483,19 @@
                     </div>
                     <div class="passengersTable__segment-passengers__passenger__mealTitle" ng-if="selectedPassengerFlightMeal">
                       <span>{{ selectedPassengerFlightMeal.title }}</span>
-                      <span ng-if="selectedPassengerFlightMeal" class="passengersTable__priceSeat" ng-bind-html="{ value: selectedPassengerFlightMeal.totalPrice, currency: selectedPassengerFlightMeal.currency } | price">
 
-                                            </span>
+                      <span ng-if="selectedPassengerFlightMeal"
+                            class="passengersTable__priceSeat"
+                            ng-bind-html="{ value: selectedPassengerFlightMeal.totalPrice, currency: selectedPassengerFlightMeal.currency } | price"></span>
+
                       <a ng-if="selectedPassengerFlightMeal" href ng-click="vm.removePassengerFlightMeal(passengerNum, flightNum)" class="btn-remove">
-                        <div style="display: none">
-                          <span>{{passengerNum}}</span>
-                          <span>{{flightNum}}</span>
-                        </div>
                         <span class="infoBoxWrap">
-                                                    <i class="icon_remove"></i>
-                                                    <span class="infoBox">
-                                                        <span class="infoBox__i">
-                                                            {{ 'web.extraServices.meal.cancelByPassengerSegment' | aliasStatic }}
-                                                        </span>
-                        </span>
+                          <i class="icon_remove"></i>
+                          <span class="infoBox">
+                            <span class="infoBox__i">
+                              {{ 'web.extraServices.meal.cancelByPassengerSegment' | aliasStatic }}
+                            </span>
+                          </span>
                         </span>
                       </a>
                     </div>
