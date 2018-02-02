@@ -29,7 +29,9 @@
 
               <ol>
 
-                <li ng-repeat="(num, pax) in vm.passengers" ng-class="{ prevPass:vm.currentPassengerIndex - 1 == num, active:vm.currentPassengerIndex == num, nextPass: vm.currentPassengerIndex + 1 == num}"></li>
+                <li ng-repeat="(num, pax) in vm.passengers"
+					ng-if="vm.service.availableByPassengerSegments[num] && vm.service.availableByPassengerSegments[num][vm.currentFlightIndex]"
+					ng-class="{ prevPass:vm.prevPassengerIndex == num, active:vm.currentPassengerIndex == num, nextPass: vm.nextPassengerIndex == num}"></li>
 
               </ol>
 
