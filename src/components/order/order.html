@@ -369,7 +369,10 @@
                         <h2 class="title">
                             {{ 'web.orderInfo.addExtraServices' | aliasStatic}}
                         </h2>
-                        <wrap ng-bind-html=" 'web.orderInfo.addExtraServices.htmlItems' | aliasStatic"></wrap>
+                        <!-- <wrap ng-bind-html=" 'web.orderInfo.addExtraServices.htmlItems' | aliasStatic"></wrap> -->
+                        <div class="otherServices__i__icon-meal"></div>
+                        <div class="otherServices__i__icon-sead"></div>
+                        <!--  --> 
                         <div class="btnRow">
                             <a href ng-click="vm.openAddServices(vm.pnr, vm.lastName)" class="btn btn_select js-add-services">
                                 {{ 'web.buttons.addServices' | aliasStatic}}
