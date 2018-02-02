@@ -12,6 +12,7 @@ angular.module('app').component('popupMealRossiya', {
         flight: '=flight',
         setPassengerFlightMeal: '=handler',
         clearPassengerFlightMeal: '&remove',
+        getPassengerFlightMeal: '=get',
         subgroups: '=subgroups',
         mealImagesPath: '=path',
         service: '=',
@@ -26,12 +27,12 @@ function PopupMealRossiyaController(utils, $timeout, $scope) {
     vm.mealMenuSubgroupMobileChange = mealMenuSubgroupMobileChange;
     vm.mealMenuSubgroup = false;
     vm.mealMenuSubgroupMobile = 'false';
-    vm.subgroupItems = utils.createOptionsForUiSelect(vm.subgroups, 'all'); 
+    vm.subgroupItems = utils.createOptionsForUiSelect(vm.subgroups, 'all');
     vm.switchNext = switchNext;
     vm.switchPrev = switchPrev;
 
     updateNextPrevState();
-	
+
 	$scope.$watch('vm.currentPassengerIndex', function () {
         updateNextPrevState();
     });

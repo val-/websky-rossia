@@ -30,9 +30,18 @@
               <ol>
 
                 <li ng-repeat="(num, pax) in vm.passengers"
-					ng-if="vm.service.availableByPassengerSegments[num] && vm.service.availableByPassengerSegments[num][vm.currentFlightIndex]"
-					ng-class="{ prevPass:vm.prevPassengerIndex == num, active:vm.currentPassengerIndex == num, nextPass: vm.nextPassengerIndex == num}"></li>
+          					ng-if="vm.service.availableByPassengerSegments[num] && vm.service.availableByPassengerSegments[num][vm.currentFlightIndex]"
+          					ng-class="{ active:vm.currentPassengerIndex == num, choice: vm.getPassengerFlightMeal(num, vm.currentFlightIndex)}">
+                    </li>
 
+                    <span style="display: none">
+                      {{ vm.getPassengerFlightMeal(vm.currentPassengerIndex, vm.currentFlightIndex) }}
+                    </span>
+                    <span style="display: none">
+                      vm.currentPassengerIndex -- {{ vm.currentPassengerIndex }} vm.currentFlightIndex -- {{ vm.currentFlightIndex }}
+                    </span>
+
+                <!-- ng-class="{ prevPass:vm.prevPassengerIndex == num, active:vm.currentPassengerIndex == num, nextPass: vm.nextPassengerIndex == num}" -->
               </ol>
 
               <span class="itemSwiper-next" ng-if="vm.nextPassenger" ng-click="vm.switchNext()">
@@ -55,18 +64,6 @@
               <div ng-repeat="(subgroupNum, subgroup) in vm.mealMenu">
                 <div ng-repeat="mealItem in subgroup" ng-if="mealItem.active" class="itemOrderInfo-row">
                   <span>{{ mealItem.title }}</span>
-
-                  <!-- <span ng-bind-html="{ value: mealItem.price, currency: mealItem.currency } | price"></span>
-                  <a href class="btn-remove" ng-click="vm.clearPassengerFlightMeal()">
-                    <span class="infoBoxWrap">
-                      <i class="icon_remove"></i>
-                      <span class="infoBox">
-                        <span class="infoBox__i">
-                          {{ 'web.extraServices.meal.cancelByPassengerSegment' | aliasStatic }}
-                        </span>
-                      </span>
-                    </span>
-                  </a> -->
 
                   <span class="itemOrderInfo-row__price">
                     <span ng-bind-html="{ value: mealItem.price, currency: mealItem.currency } | price"></span>
