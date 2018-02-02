@@ -53,7 +53,8 @@
               <div ng-repeat="(subgroupNum, subgroup) in vm.mealMenu">
                 <div ng-repeat="mealItem in subgroup" ng-if="mealItem.active" class="itemOrderInfo-row">
                   <span>{{ mealItem.title }}</span>
-                  <span ng-bind-html="{ value: mealItem.price, currency: mealItem.currency } | price"></span>
+
+                  <!-- <span ng-bind-html="{ value: mealItem.price, currency: mealItem.currency } | price"></span>
                   <a href class="btn-remove" ng-click="vm.clearPassengerFlightMeal()">
                     <span class="infoBoxWrap">
                       <i class="icon_remove"></i>
@@ -63,7 +64,22 @@
                         </span>
                       </span>
                     </span>
-                  </a>
+                  </a> -->
+
+                  <span class="itemOrderInfo-row__price">
+                    <span ng-bind-html="{ value: mealItem.price, currency: mealItem.currency } | price"></span>
+                    <a href class="btn-remove" ng-click="vm.clearPassengerFlightMeal()">
+                      <span class="infoBoxWrap">
+                        <i class="icon_remove"></i>
+                        <span class="infoBox">
+                          <span class="infoBox__i">
+                            {{ 'web.extraServices.meal.cancelByPassengerSegment' | aliasStatic }}
+                          </span>
+                        </span>
+                      </span>
+                    </a>
+                  </span>
+
                 </div>
               </div>
             </div>
