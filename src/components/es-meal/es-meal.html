@@ -474,7 +474,7 @@
                     <div class="passengersTable__segment-passengers__passenger__mealTitle" ng-if="selectedPassengerFlightMeal">
                       <span>{{ selectedPassengerFlightMeal.title }}</span>
 
-                      <span ng-if="selectedPassengerFlightMeal"
+                      <!-- <span ng-if="selectedPassengerFlightMeal"
                             class="passengersTable__priceSeat"
                             ng-bind-html="{ value: selectedPassengerFlightMeal.totalPrice, currency: selectedPassengerFlightMeal.currency } | price"></span>
 
@@ -487,7 +487,24 @@
                             </span>
                           </span>
                         </span>
-                      </a>
+                      </a> -->
+
+                      <span class="passengersTable__segment-passengers__passenger__mealTitle__price">
+                        <span ng-if="selectedPassengerFlightMeal"
+                              class="passengersTable__priceSeat"
+                              ng-bind-html="{ value: selectedPassengerFlightMeal.totalPrice, currency: selectedPassengerFlightMeal.currency } | price"></span>
+
+                        <a ng-if="selectedPassengerFlightMeal" href ng-click="vm.removePassengerFlightMeal(passengerNum, flightNum)" class="btn-remove">
+                          <span class="infoBoxWrap">
+                            <i class="icon_remove"></i>
+                            <span class="infoBox">
+                              <span class="infoBox__i">
+                                {{ 'web.extraServices.meal.cancelByPassengerSegment' | aliasStatic }}
+                              </span>
+                            </span>
+                          </span>
+                        </a>
+                      </span>
                     </div>
                   </div>
                   <a href fancybox="popupMeal" ng-click="vm.selectFlightPassenger(flightNum, passengerNum)" class="passengersTable__link" ng-if="!selectedPassengerFlightMeal && vm.service.availableByPassengerSegments[passengerNum]" ng-class="{ passengersTable__link_empty: !selectedPassengerFlightMeal, passengersTable__link_select: (!selectedPassengerFlightMeal && vm.selectedFlight == flightNum && vm.selectedPassenger == passengerNum) }">
