@@ -485,7 +485,7 @@
 
                     <!--  -->
 
-                    <div ng-if="!vm.service.availableByPassengerSegments[passengerNum]" class="passengersTable__segment-passengers__passenger__orderInfo">
+                    <div ng-if="!vm.service.availableByPassengerSegments[passengerNum] && vm.orderInfo.passengers[passengerNum].hasSeats" class="passengersTable__segment-passengers__passenger__orderInfo">
 
                       <wrap ng-if="vm.orderInfo[ 'all' + 'ExtraServicesByPassengers' ].length">
 
