@@ -30,16 +30,17 @@
                 <span>
                   {{ 'web.addServices.routeLabel' | aliasStatic}}{{ ' ' }}
                   <wrap ng-repeat="(num, segment) in vm.orderInfo.flights">
-                    {{ num ? ' – ' : '' }}
+                    {{ num ? ' – ' : ' | ' }}
                     <geo-marker prefix="dep__point" key="add-services" city="segment.flights[0].origincity"  cityname="segment.flights[0].origincityName" port="segment.flights[0].originport"  portname="segment.flights[0].originportName"></geo-marker>
                     <wrap ng-if="num == vm.orderInfo.flights.length-1">
                       {{ ' – ' }}
                       <geo-marker prefix="arr__point" key="add-services" city="segment.flights[segment.flights.length-1].destinationcity"  cityname="segment.flights[segment.flights.length-1].destinationcityName" port="segment.flights[segment.flights.length-1].destinationport"  portname="segment.flights[segment.flights.length-1].destinationportName"></geo-marker>
                     </wrap>
-                  </wrap>{{ ', ' }}
+                  </wrap>{{ ' | ' }}
                   <wrap ng-repeat="(num, segment) in vm.orderInfo.flights">
                     {{ num ? ' – ' : '' }}
-                    {{ segment.date | formatDate: 'D MMM' }}
+                    <!-- {{ segment.date | formatDate: 'D MMM' }} -->
+                    {{ segment.date | formatDate: 'D.M.Y'}}
                   </wrap>
                 </span>
                 <div class="searchResultsControl searchResultsControl__back">
