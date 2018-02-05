@@ -96,7 +96,8 @@
               <div class="list__i isotopeGrid">
                 <wrap ng-repeat="(subgroupNum, subgroup) in vm.mealMenu">
                   <div ng-repeat="mealItem in subgroup" ng-if=" vm.mealMenuSubgroup === subgroupNum || vm.mealMenuSubgroup === false " ng-class="{ active: mealItem.active }" class="item">
-                    <a href ng-click=" vm.setPassengerFlightMeal(subgroupNum, mealItem);">
+
+                    <a href ng-if="!mealItem.active" ng-click="vm.setPassengerFlightMeal(subgroupNum, mealItem)">
                       <div class="img">
                         <img ng-src="{{vm.mealImagesPath}}/{{ mealItem.serviceType }}-{{ mealItem.rfisc }}.jpg" alt="" />
                       </div>
@@ -105,6 +106,17 @@
                         <p class="price" ng-bind-html="{ value: mealItem.price, currency: mealItem.currency } | price"></p>
                       </div>
                     </a>
+
+                    <a href ng-if="mealItem.active" ng-click="vm.clearPassengerFlightMeal()">
+                      <div class="img">
+                        <img ng-src="{{vm.mealImagesPath}}/{{ mealItem.serviceType }}-{{ mealItem.rfisc }}.jpg" alt="" />
+                      </div>
+                      <div class="name">
+                        <p>{{ mealItem.title }}</p>
+                        <p class="price" ng-bind-html="{ value: mealItem.price, currency: mealItem.currency } | price"></p>
+                      </div>
+                    </a>
+
                   </div>
                 </wrap>
               </div>
