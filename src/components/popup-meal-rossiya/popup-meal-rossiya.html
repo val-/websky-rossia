@@ -34,13 +34,6 @@
           					ng-class="{ active:vm.currentPassengerIndex == num, choice: vm.getPassengerFlightMeal(num, vm.currentFlightIndex)}">
                     </li>
 
-                    <span style="display: none">
-                      {{ vm.getPassengerFlightMeal(vm.currentPassengerIndex, vm.currentFlightIndex) }}
-                    </span>
-                    <span style="display: none">
-                      vm.currentPassengerIndex -- {{ vm.currentPassengerIndex }} vm.currentFlightIndex -- {{ vm.currentFlightIndex }}
-                    </span>
-
                 <!-- ng-class="{ prevPass:vm.prevPassengerIndex == num, active:vm.currentPassengerIndex == num, nextPass: vm.nextPassengerIndex == num}" -->
               </ol>
 
