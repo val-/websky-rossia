@@ -29,6 +29,13 @@ function PopupMealRossiyaController(utils) {
 	vm.subgroupItems = utils.createOptionsForUiSelect(vm.subgroups, 'all');
 	vm.switchNext = switchNext;
 	vm.switchPrev = switchPrev;
+	
+	vm.availablePassengers = vm.passengers.filter(function (passenger, index) {
+        return (
+            vm.service.availableByPassengerSegments[index] &&
+            vm.service.availableByPassengerSegments[index][vm.currentFlightIndex]
+        );
+    });
 
 	function mealMenuSubgroupMobileChange() {
 		if (vm.mealMenuSubgroupMobile === false) {
