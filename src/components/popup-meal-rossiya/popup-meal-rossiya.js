@@ -77,15 +77,30 @@ function PopupMealRossiyaController(utils, $timeout, $scope) {
     passenger:
     for (var i = 0; i < vm.passengers.length; i++) {
       if (i === vm.currentPassengerIndex) {
-        for (var j = i + 1; j < vm.passengers.length; j++) {
-          if (
-            vm.service.availableByPassengerSegments[j] &&
-            vm.service.availableByPassengerSegments[j][vm.currentFlightIndex]
-          ) {
-            vm.selectFlightPassenger(vm.currentFlightIndex, j);
-            break passenger;
-            // Нужно дождаться применения нового currentPassengerIndex в родительском скопе
-            $timeout(updateNextPrevState);
+        // Если пассажир последний
+        if (i == vm.passengers.length - 1) {
+          for (var j = 0; j < vm.passengers.length - 1; j++) {
+            if (
+              vm.service.availableByPassengerSegments[j] &&
+              vm.service.availableByPassengerSegments[j][vm.currentFlightIndex]
+            ) {
+              vm.selectFlightPassenger(vm.currentFlightIndex, j);
+              break passenger;
+              // Нужно дождаться применения нового currentPassengerIndex в родительском скопе
+              $timeout(updateNextPrevState);
+            }
+          }
+        } else {
+          for (var j = i + 1; j < vm.passengers.length; j++) {
+            if (
+              vm.service.availableByPassengerSegments[j] &&
+              vm.service.availableByPassengerSegments[j][vm.currentFlightIndex]
+            ) {
+              vm.selectFlightPassenger(vm.currentFlightIndex, j);
+              break passenger;
+              // Нужно дождаться применения нового currentPassengerIndex в родительском скопе
+              $timeout(updateNextPrevState);
+            }
           }
         }
       }
@@ -96,15 +111,30 @@ function PopupMealRossiyaController(utils, $timeout, $scope) {
     passenger:
     for (var i = 0; i < vm.passengers.length; i++) {
       if (i === vm.currentPassengerIndex) {
-        for (var j = i - 1; j > -1; j--) {
-          if (
-            vm.service.availableByPassengerSegments[j] &&
-            vm.service.availableByPassengerSegments[j][vm.currentFlightIndex]
-          ) {
-            vm.selectFlightPassenger(vm.currentFlightIndex, j);
-            break passenger;
-            // Нужно дождаться применения нового currentPassengerIndex в родительском скопе
-            $timeout(updateNextPrevState);
+        // Если пассажир первый
+        if (i == 0) {
+          for (var j = 1; j < vm.passengers.length; j++) {
+            if (
+              vm.service.availableByPassengerSegments[vm.passengers.length - j] &&
+              vm.service.availableByPassengerSegments[vm.passengers.length - j][vm.currentFlightIndex]
+            ) {
+              vm.selectFlightPassenger(vm.currentFlightIndex, vm.passengers.length - j);
+              break passenger;
+              // Нужно дождаться применения нового currentPassengerIndex в родительском скопе
+              $timeout(updateNextPrevState);
+            }
+          }
+        } else {
+          for (var j = i - 1; j > -1; j--) {
+            if (
+              vm.service.availableByPassengerSegments[j] &&
+              vm.service.availableByPassengerSegments[j][vm.currentFlightIndex]
+            ) {
+              vm.selectFlightPassenger(vm.currentFlightIndex, j);
+              break passenger;
+              // Нужно дождаться применения нового currentPassengerIndex в родительском скопе
+              $timeout(updateNextPrevState);
+            }
           }
         }
       }

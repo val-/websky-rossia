@@ -23,7 +23,10 @@
             <!-- itemSwiper -->
             <div class="itemSwiper" ng-if="vm.nextPassenger || vm.prevPassenger">
 
-              <span class="itemSwiper-prev" ng-if="vm.prevPassenger" ng-click="vm.switchPrev()">
+              <!-- <span class="itemSwiper-prev" ng-if="vm.prevPassenger" ng-click="vm.switchPrev()">
+                  {{ 'web.extraServices.meal.itemSwiper.prev' | aliasStatic }}
+              </span> -->
+              <span class="itemSwiper-prev" ng-click="vm.switchPrev()">
                   {{ 'web.extraServices.meal.itemSwiper.prev' | aliasStatic }}
               </span>
 
@@ -37,7 +40,10 @@
                 <!-- ng-class="{ prevPass:vm.prevPassengerIndex == num, active:vm.currentPassengerIndex == num, nextPass: vm.nextPassengerIndex == num}" -->
               </ol>
 
-              <span class="itemSwiper-next" ng-if="vm.nextPassenger" ng-click="vm.switchNext()">
+              <!-- <span class="itemSwiper-next" ng-if="vm.nextPassenger" ng-click="vm.switchNext()">
+                  {{ 'web.extraServices.meal.itemSwiper.next' | aliasStatic }}
+              </span> -->
+              <span class="itemSwiper-next" ng-click="vm.switchNext()">
                   {{ 'web.extraServices.meal.itemSwiper.next' | aliasStatic }}
               </span>
 
