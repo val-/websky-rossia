@@ -152,49 +152,57 @@
         <br/>
         <br/>
 
-        <div ng-if="vm.orderInfo.hasSelectedExtraServices && vm.priceVariant" class="payMethods">
-          <div class="payMethods__i">
+        <!--  -->
+        <div class="payMethods-wrap">
+          <!-- payMethods -->
+          <div ng-if="vm.orderInfo.hasSelectedExtraServices && vm.priceVariant" class="payMethods">
+            <div class="payMethods__i">
 
-            <wrap ng-show="!vm.orderInfo.hasOnlyFreeSelectedExtraServices">
-              <h2 class="title">
-                                {{ 'web.paymentTypeSelect.header' | aliasStatic}}
-                            </h2>
+              <wrap ng-show="!vm.orderInfo.hasOnlyFreeSelectedExtraServices">
+                <h2 class="title">
+                                  {{ 'web.paymentTypeSelect.header' | aliasStatic}}
+                              </h2>
 
-              <payment-type-select price-variant="vm.priceVariant" change-handler="vm.paymentFormChangeHandler" selected-payment-type="vm.selectedPaymentType" selected-payment-form="vm.selectedPaymentForm">
-              </payment-type-select>
-            </wrap>
+                <payment-type-select price-variant="vm.priceVariant" change-handler="vm.paymentFormChangeHandler" selected-payment-type="vm.selectedPaymentType" selected-payment-form="vm.selectedPaymentForm">
+                </payment-type-select>
+              </wrap>
 
-            <div class="iconfirm">
-              <div class="iconfirm__i">
-                <div class="customCheckbox">
-                  <label><input type="checkbox" id="iconfirm" ng-model="vm.agree"/><span></span></label>
+              <div class="iconfirm">
+                <div class="iconfirm__i">
+                  <div class="customCheckbox">
+                    <label><input type="checkbox" id="iconfirm" ng-model="vm.agree"/><span></span></label>
+                  </div>
+                  <p>
+                    <label for="iconfirm">
+  										<wrap ng-bind-html=" 'web.addServices.agree' | aliasStatic"></wrap>
+  									</label>
+                  </p>
                 </div>
-                <p>
-                  <label for="iconfirm">
-										<wrap ng-bind-html=" 'web.addServices.agree' | aliasStatic"></wrap>
-									</label>
-                </p>
               </div>
+
             </div>
-
           </div>
-        </div>
+          <!-- end payMethods -->
 
-        <div class="searchResultsControl searchResultsControl__forward">
-          <div class="searchResultsControl__i">
+          <!-- searchResultsControl -->
+          <div class="searchResultsControl searchResultsControl__forward">
+            <div class="searchResultsControl__i">
 
-            <a href ng-if="vm.orderInfo.hasSelectedExtraServices && !vm.confirmLoading" ng-click="vm.submitPayment()" ng-class="{ disabled: (!vm.agree || !vm.selectedPaymentForm || !vm.selectedPaymentType || vm.modifyServicesLoading || vm.orderServicesLoading) }"
-              class="btn btn_next">
-							<span class="mobileHide">
-                                {{  vm.orderInfo.hasOnlyFreeSelectedExtraServices ? 'web.buttons.confirmAddServices' : 'web.buttons.gotoPayment' | aliasStatic}}
-                            </span>
-                            <span class="mobileShow">
-                                {{ 'web.buttons.next' | aliasStatic}}
-                            </span>
-						</a>
+              <a href ng-if="vm.orderInfo.hasSelectedExtraServices && !vm.confirmLoading" ng-click="vm.submitPayment()" ng-class="{ disabled: (!vm.agree || !vm.selectedPaymentForm || !vm.selectedPaymentType || vm.modifyServicesLoading || vm.orderServicesLoading) }"
+                class="btn btn_next">
+  							<span class="mobileHide">
+                                  {{  vm.orderInfo.hasOnlyFreeSelectedExtraServices ? 'web.buttons.confirmAddServices' : 'web.buttons.gotoPayment' | aliasStatic}}
+                              </span>
+                              <span class="mobileShow">
+                                  {{ 'web.buttons.next' | aliasStatic}}
+                              </span>
+  						</a>
 
+            </div>
           </div>
+          <!-- end searchResultsControl -->
         </div>
+        <!--  -->
 
         <div ng-if="vm.showNeedSelectPaymentFormMesage" class="infoMessage infoMessage_error">
           <div class="infoMessage__i">
