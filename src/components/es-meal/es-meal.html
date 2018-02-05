@@ -405,6 +405,7 @@
 
                              <div ng-repeat="passengerSegmentService in vm.orderInfo[ 'all' + 'ExtraServicesByPassengers' ][passengerNumber].passengerSegmentServices[segmentNumber]"
                                 ng-if="extraService.code == passengerSegmentService.code && passengerSegmentService.code == 'meal'">
+                                <!-- && passengerSegmentService.serviceItem.status == 'ISSUED_WITH_EMD' -->
 
                                 <!-- included-service__passenger__services__segment__service -->
                                 <div class="included-service__passenger__services__segment__service">
