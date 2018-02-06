@@ -118,10 +118,26 @@
 
                   </div>
                 </wrap>
+
+                <!-- list-footer -->
+                <div class="list-footer">
+                  <div class="list-footer__text">
+                    {{ 'web.extraServices.meal.footerText' | aliasStatic}}
+                  </div>
+                  <div class="list-footer__button">
+                    <a href="" ng-click="vm.close()" class="btn">
+                      <span>OK</span>
+                    </a>
+                  </div>
+                </div>
+                <!-- end list-footer -->
+                
               </div>
 
             </div>
             <!-- end list -->
+
+
 
           </div>
 
@@ -132,16 +148,4 @@
     </div>
 
   </div>
-  <!-- foodSlider-footer -->
-  <div class="foodSlider-footer">
-    <div class="foodSlider-footer__text">
-      {{ 'web.extraServices.meal.footerText' | aliasStatic}}
-    </div>
-    <div class="foodSlider-footer__button">
-      <a href="" ng-click="vm.close()" class="btn">
-        <span>OK</span>
-      </a>
-    </div>
-  </div>
-  <!-- end foodSlider-footer -->
 </div>
