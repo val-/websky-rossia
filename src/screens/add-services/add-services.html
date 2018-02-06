@@ -28,7 +28,7 @@
               <div class="orderInfo">
                 <span>{{ 'web.addServices.regnumLabel' | aliasStatic}}{{ vm.pnr }}</span>
                 <span>
-                  {{ 'web.addServices.routeLabel' | aliasStatic}}{{ ' ' }}
+                  <!-- {{ 'web.addServices.routeLabel' | aliasStatic}}{{ ' ' }} -->
                   <wrap ng-repeat="(num, segment) in vm.orderInfo.flights">
                     {{ num ? ' – ' : ' | ' }}
                     <geo-marker prefix="dep__point" key="add-services" city="segment.flights[0].origincity"  cityname="segment.flights[0].origincityName" port="segment.flights[0].originport"  portname="segment.flights[0].originportName"></geo-marker>
