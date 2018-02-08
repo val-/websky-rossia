@@ -317,74 +317,6 @@
                 </div>
                 <!-- end passengersTable__segment__route -->
 
-                <!--  -->
-
-                <!-- passengersTable__segment -->
-                <div class="passengersTable__segment__services-paid" ng-if="!vm.service.availableBySegments[flightNum]">
-                  <span style="display: none">
-                    {{ vm.service.availableBySegments }}
-                  </span>
-                  <wrap ng-if="vm.orderInfo[ 'all' + 'ExtraServicesByPassengers' ].length">
-
-                    <div ng-repeat="extraService in vm.orderInfo.all_extra_services"
-                         class="included-service included-service__{{ extraService.code }}"
-                         ng-if="!extraService.empty">
-
-                      <div ng-repeat="(passengerNumber, passenger) in vm.orderInfo.passengers"
-                           ng-if="vm.orderInfo[ 'all' + 'ExtraServicesByPassengers' ][passengerNumber] && extraService.passengers[passengerNumber].segments.length"
-                           class="included-service__passenger">
-
-                        <div ng-if="vm.orderInfo[ 'all' + 'ExtraServicesByPassengers' ][passengerNumber].passengerSegmentServices"
-                             class="included-service__passenger__services">
-
-                          <div ng-repeat="(segmentNumber, segment) in vm.orderInfo.plainFlights"
-                               class="included-service__passenger__services__segment"
-                               ng-if="vm.orderInfo[ 'all' + 'ExtraServicesByPassengers' ][passengerNumber].passengerSegmentServices[segmentNumber]">
-
-                            <div ng-repeat="passengerSegmentService in vm.orderInfo[ 'all' + 'ExtraServicesByPassengers' ][passengerNumber].passengerSegmentServices[segmentNumber]"
-                                 class="included-service__passenger__services__segment__wrap"
-                                 ng-if="extraService.code == passengerSegmentService.code && passengerSegmentService.code == 'meal' && passengerSegmentService.serviceItem.status == 'ISSUED_WITH_EMD'">
-
-                              <div class="included-service__passenger__services__segment__name">
-                                {{ passenger.lastName }} {{ passenger.firstName }}
-                              </div>
-
-                              <!-- included-service__passenger__services__segment__service -->
-                              <div class="included-service__passenger__services__segment__service">
-
-                                <div ng-class="{ line_through: passengerSegmentService.serviceItem.removed }" title="{{ (passengerSegmentService.serviceItem.removed ? ( 'web.orderInfo.extraServiceRemoved' | aliasStatic) : '') }}" class="included-service__passenger__services__segment__service__text">
-                                  <span class="included-service__passenger__services__segment__service__text__title">
-                                      {{ 'web.orderInfo.extraServices.' + passengerSegmentService.code | aliasStatic}}
-                                  </span>
-                                  <span class="included-service__passenger__services__segment__service__text__value" ng-if="passengerSegmentService.code == 'seat'">
-                                      {{ passengerSegmentService.serviceItem.value }}
-                                    </span>
-                                  <span class="included-service__passenger__services__segment__service__text__value" ng-if="passengerSegmentService.code == 'meal' || passengerSegmentService.code == 'baggage'">
-                                      {{ passengerSegmentService.serviceItem.title }}
-                                    </span>
-                                </div>
-
-                                <div class="included-service__passenger__services__segment__service__price" ng-if="passengerSegmentService.serviceItem.status !== 'ISSUED_WITH_EMD'" ng-bind-html="{ value: passengerSegmentService.serviceItem.totalPrice, currency: passengerSegmentService.serviceItem.currency } | price">
-                                </div>
-
-                                <div class="included-service__passenger__services__segment__service__price included-service__passenger__services__segment__service__price_issued" ng-if="passengerSegmentService.serviceItem.status == 'ISSUED_WITH_EMD'">
-                                  {{ 'web.serviceStatus.ISSUED_WITH_EMD' | aliasStatic }}
-                                </div>
-
-                              </div>
-                              <!-- included-service__passenger__services__segment__service -->
-                            </div>
-
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </wrap>
-                </div>
-                <!-- end passengersTable__segment -->
-
-                <!--  -->
-
               </div>
 
               <div ng-repeat="(flightNum, flight) in vm.orderInfo.plainFlights" ng-if="vm.service.availableBySegments[flightNum] && vm.selectedFlight == flightNum" ng-class="{ active: vm.selectedFlight == flightNum }" class="passengersTable__segment-passengers">
@@ -485,8 +417,19 @@
     </div>
   </div>
 
-  <popup-meal-rossiya menu="vm.mealMenu" passenger="vm.orderInfo.passengers[vm.selectedPassenger]" passengers="vm.orderInfo.passengers" current-passenger-index="vm.selectedPassenger" flight="vm.orderInfo.plainFlights[vm.selectedFlight]" current-flight-index="vm.selectedFlight"
-    handler="vm.setPassengerFlightMeal" get="vm.getSelectedPassengerFlightMeal" remove="vm.removePassengerFlightMeal(vm.selectedPassenger, vm.selectedFlight)" path="vm.mealImagesPath" subgroups="vm.service.subgroups" select="vm.selectFlightPassenger" service="vm.service">
+  <popup-meal-rossiya menu="vm.mealMenu"
+                      passenger="vm.orderInfo.passengers[vm.selectedPassenger]"
+                      passengers="vm.orderInfo.passengers"
+                      current-passenger-index="vm.selectedPassenger"
+                      flight="vm.orderInfo.plainFlights[vm.selectedFlight]"
+                      current-flight-index="vm.selectedFlight"
+                      handler="vm.setPassengerFlightMeal"
+                      get="vm.getSelectedPassengerFlightMeal"
+                      remove="vm.removePassengerFlightMeal(vm.selectedPassenger, vm.selectedFlight)"
+                      path="vm.mealImagesPath"
+                      subgroups="vm.service.subgroups"
+                      select="vm.selectFlightPassenger"
+                      service="vm.service">
   </popup-meal-rossiya>
 
 </div>
