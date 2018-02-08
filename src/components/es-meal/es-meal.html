@@ -320,8 +320,10 @@
                 <!--  -->
 
                 <!-- passengersTable__segment -->
-                <!-- firstCol__services-active -->
                 <div class="passengersTable__segment__services-paid" ng-if="!vm.service.availableBySegments[flightNum]">
+                  <span style="display: none">
+                    {{ vm.service.availableBySegments }}
+                  </span>
                   <wrap ng-if="vm.orderInfo[ 'all' + 'ExtraServicesByPassengers' ].length">
 
                     <div ng-repeat="extraService in vm.orderInfo.all_extra_services"
@@ -338,15 +340,14 @@
                           <div ng-repeat="(segmentNumber, segment) in vm.orderInfo.plainFlights"
                                class="included-service__passenger__services__segment"
                                ng-if="vm.orderInfo[ 'all' + 'ExtraServicesByPassengers' ][passengerNumber].passengerSegmentServices[segmentNumber]">
-                            <!-- ng-if="vm.orderInfo[ 'all' + 'ExtraServicesByPassengers' ][passengerNumber].passengerSegmentServices[segmentNumber][0]." -->
 
                             <div ng-repeat="passengerSegmentService in vm.orderInfo[ 'all' + 'ExtraServicesByPassengers' ][passengerNumber].passengerSegmentServices[segmentNumber]"
+                                 class="included-service__passenger__services__segment__wrap"
                                  ng-if="extraService.code == passengerSegmentService.code && passengerSegmentService.code == 'meal' && passengerSegmentService.serviceItem.status == 'ISSUED_WITH_EMD'">
-                              <!-- && passengerSegmentService.serviceItem.status == 'ISSUED_WITH_EMD' -->
 
-                              <span class="included-service__passenger__services__segment__name">
+                              <div class="included-service__passenger__services__segment__name">
                                 {{ passenger.lastName }} {{ passenger.firstName }}
-                              </span>
+                              </div>
 
                               <!-- included-service__passenger__services__segment__service -->
                               <div class="included-service__passenger__services__segment__service">
