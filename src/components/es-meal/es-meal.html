@@ -67,12 +67,14 @@
         <div class="foodSelect__i">
           <table class="passengersTable">
             <tbody>
+
               <tr class="headRow">
                 <td class="firstCol"></td>
                 <td ng-repeat="(passengerNum, passenger) in vm.orderInfo.passengers">
                   {{ passenger.lastName }} {{ passenger.firstName }}
                 </td>
               </tr>
+
               <tr ng-repeat-start="(flightNum, flight) in vm.orderInfo.plainFlights" class="contentRow">
                 <!-- firstCol -->
                 <td class="firstCol">
@@ -94,7 +96,6 @@
                   <!--  -->
                 </td>
                 <!-- end firstCol -->
-
                 <td ng-repeat="(passengerNum, passenger) in vm.orderInfo.passengers" ng-class="{ active: vm.selectedFlight == flightNum && vm.selectedPassenger == passengerNum }" ng-init="selectedPassengerFlightMeal = vm.getSelectedPassengerFlightMeal(passengerNum, flightNum)">
 
                   <wrap ng-if="vm.service.availableByPassengerSegments[passengerNum][flightNum]">
@@ -147,6 +148,18 @@
                     <div class="food">
                       <div class="food__i">
 
+                        <!-- этот блок проверяет на каком сегменте пассажир сделал свой выбор и
+                        в зависимости от этого переходит на соответствующую группу. -->
+                        <div style="display: none"
+                             ng-repeat="(subgroupNum, subgroup) in vm.mealMenu">
+
+                          <span ng-repeat="mealItem in subgroup" ng-if="mealItem.active" ng-init="vm.mealMenuSubgroup = subgroupNum">
+                            vm.mealMenuSubgroup -- {{ vm.mealMenuSubgroup }} -- subgroupNum {{ subgroupNum }}
+                          </span>
+
+                        </div>
+                        <!--  -->
+
                         <div ng-if=" vm.service.subgroups.length > 1 " class="foodSorting">
                           <ul>
                             <li ng-class="{ active: vm.mealMenuSubgroup === false }">
@@ -162,7 +175,36 @@
                           <div class="list__i isotopeGrid">
 
                             <wrap ng-repeat="(subgroupNum, subgroup) in vm.mealMenu">
-                              <div ng-repeat="mealItem in subgroup" ng-if=" vm.mealMenuSubgroup === subgroupNum || vm.mealMenuSubgroup === false " ng-class="{ active: mealItem.active, control_disabled: vm.locked }" ng-click="vm.setPassengerFlightMeal(subgroupNum, mealItem)" class="item">
+
+                              <!--  -->
+                              <div ng-repeat="mealItem in subgroup"
+                                   ng-if=" vm.mealMenuSubgroup === subgroupNum && mealItem.active"
+                                   ng-class="{ active: mealItem.active }"
+                                   ng-click="vm.setPassengerFlightMeal(subgroupNum, mealItem)" class="item">
+                                <div class="food_wrap">
+                                  <div class="img">
+                                    <img ng-src="{{vm.mealImagesPath}}/{{ mealItem.serviceType }}-{{ mealItem.rfisc }}.jpg" alt="" />
+                                  </div>
+                                  <div class="food_info">
+                                    <div class="name">
+                                      <p>{{ mealItem.title }}</p>
+                                      <p class="price" ng-bind-html="{ value: mealItem.price, currency: mealItem.currency } | price"></p>
+                                    </div>
+                                    <div class="description">
+                                      <a ng-if="vm.hasAlias('web.extraServices.meal.ingredientsDescriptionContent.' + mealItem.serviceType + '.' + mealItem.rfisc)" href fancybox="popupAlias" class="link link--ingredientsDescription" data-popup-alias="web.extraServices.meal.ingredientsDescriptionContent.{{mealItem.serviceType}}.{{mealItem.rfisc}}">
+                                                                          {{ 'web.extraServices.meal.ingredientsDescriptionLabel' | aliasStatic }}
+                                                                      </a>
+                                      <p ng-bind-html="mealItem.description"></p>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                              <!--  -->
+
+                              <div ng-repeat="mealItem in subgroup"
+                                   ng-if=" vm.mealMenuSubgroup === subgroupNum && !mealItem.active || vm.mealMenuSubgroup === false "
+                                   ng-class="{ active: mealItem.active, control_disabled: vm.locked }"
+                                   ng-click="vm.setPassengerFlightMeal(subgroupNum, mealItem)" class="item">
                                 <div class="food_wrap">
                                   <div class="img">
                                     <img ng-src="{{vm.mealImagesPath}}/{{ mealItem.serviceType }}-{{ mealItem.rfisc }}.jpg" alt="" />
