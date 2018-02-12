@@ -40,10 +40,6 @@
               </div>
             </td>
 
-            <div style="display: none">
-              {{ vm.checkAllChoose() }}
-            </div>
-
             <td ng-if="!vm.checkAllChoose()">
 
               <a href ng-click="vm.switchService()" ng-class="{ active: vm.service.active, control_disabled: vm.locked }" class="btn showDrop_js ">
@@ -64,11 +60,6 @@
             </td>
 
             <td ng-if="vm.checkAllChoose()">
-              <!-- <a ng-class="{ active: vm.service.active, control_disabled: vm.locked }" class="btn dropdown-button ">
-								<span class="hide">
-                  {{ 'web.extraServices.meal.deselect' | aliasStatic}}
-                </span>
-							</a> -->
               <a ng-class="{ active: vm.service.active, control_disabled: vm.locked }" class="btn-arrow btn dropdown-button ">
                 <span class="arrow__icon">
 

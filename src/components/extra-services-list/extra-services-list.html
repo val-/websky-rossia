@@ -2,10 +2,14 @@
 <div class="list">
 
     <div ng-repeat="esCode in vm.list track by $index" ng-if="vm.es[esCode]" class="item dropWrapper item-{{esCode}}" ng-class="{ active: vm.es[esCode].active }">
-        <es-seat ng-if="esCode == 'seat'" service="vm.es.seat" locked="vm.locked"></es-seat>
         <es-baggage ng-if="esCode == 'baggage'" service="vm.es.baggage" locked="vm.locked"></es-baggage>
+
         <!-- <es-meal ng-if="esCode == 'meal'" service="vm.es.meal" locked="vm.locked"></es-meal> -->
         <es-meal-rossiya ng-if="esCode == 'meal'" service="vm.es.meal" locked="vm.locked"></es-meal-rossiya>
+
+        <!-- <es-seat ng-if="esCode == 'seat'" service="vm.es.seat" locked="vm.locked"></es-seat> -->
+        <es-seat-rossiya ng-if="esCode == 'seat'" service="vm.es.seat" locked="vm.locked"></es-seat-rossiya>
+
         <es-insurance ng-if="esCode == 'insurance'" service="vm.es.insurance" locked="vm.locked"></es-insurance>
         <es-aeroexpress ng-if="esCode == 'aeroexpress'" service="vm.es.aeroexpress" locked="vm.locked"></es-aeroexpress>
         <es-common ng-if="vm.isCommonService(esCode)" service="vm.es[esCode]" code="esCode" locked="vm.locked"></es-common>

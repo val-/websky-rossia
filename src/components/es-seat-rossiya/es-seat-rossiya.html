@@ -1,0 +1,360 @@
+<div class="item__i mobileHide">
+  <div class="top">
+    <div class="top__i">
+
+      <table>
+        <tbody>
+          <tr>
+            <td>
+              <div class="text">
+                <div class="iconBox" ng-click="vm.switchService()">
+                  <i class="icon_seat-reservation"></i>
+                </div>
+                <div class="name">
+                  <h2>
+                                        {{ 'web.extraServices.seat.header' | aliasStatic}}
+                                        <a href>
+                                            <span class="infoBoxWrap">
+                                                <i class="icon_info"></i>
+                                                <span class="infoBox">
+                                                    <span class="infoBox__i" ng-bind-html="'web.extraServicesRules.seat' | aliasStatic"></span>
+                                                </span>
+                                            </span>
+                                        </a>
+                                    </h2>
+                  <p>
+                    {{ 'web.extraServices.seat.desc' | aliasStatic}}
+                  </p>
+                </div>
+              </div>
+            </td>
+            <td>
+              <div ng-if="vm.service.active && vm.service.editablePrice" class="price">
+                <div class="price__i">
+                  <h3 ng-bind-html="{ value: vm.service.editablePrice.price, currency: vm.service.editablePrice.currency } | price"></h3>
+                </div>
+              </div>
+            </td>
+
+            <td ng-if="!vm.checkAllChoose()">
+
+              <a href ng-click="vm.switchService()" ng-class="{ active: vm.service.active, control_disabled: vm.locked }" class="btn showDrop_js ">
+                <span class="show">
+                  {{ 'web.extraServices.meal.select' | aliasStatic}}
+                </span>
+              </a>
+
+              <a ng-class="{ active: vm.service.active, control_disabled: vm.locked }" class="btn dropdown-button ">
+                <span class="show">
+                  {{ 'web.extraServices.meal.select' | aliasStatic}}
+                </span>
+								<span class="hide">
+                  {{ 'web.extraServices.meal.deselect' | aliasStatic}}
+                </span>
+							</a>
+
+            </td>
+
+            <td ng-if="vm.checkAllChoose()">
+              <a ng-class="{ active: vm.service.active, control_disabled: vm.locked }" class="btn-arrow btn dropdown-button ">
+                <span class="arrow__icon">
+
+                </span>
+              </a>
+            </td>
+
+          </tr>
+        </tbody>
+      </table>
+
+    </div>
+  </div>
+
+
+  <div class="drop" ng-class="{ active: vm.service.active, show_js: vm.service.active }">
+    <div class="drop__i">
+
+      <div class="seatSelect">
+        <div class="seatSelect__i">
+
+          <div class="passengersTableSeat__wrapper" ng-class="{ one_passenger: (vm.orderInfo.passengers.length == 1) }" ng-init="vm.selectFirstAvailablePassengerFlight()">
+            <div class="passengersSeatMapBottom">
+              <div class="info__i">
+                <p class="sun">
+                  {{ vm.sunInfoByFlights[vm.selectedFlight] }}
+                </p>
+                <div ng-if="!vm.loadingSeatMap && vm.seatMap" class="seatInfo">
+                  <ul>
+                    <li class="free">
+                      <span class="seat-place"></span> {{ 'web.extraServices.seat.free' | aliasStatic}}
+                    </li>
+                    <li class="selected">
+                      <span class="seat-place"></span> {{ 'web.extraServices.seat.selected' | aliasStatic}}
+                    </li>
+                    <li class="disabled">
+                      <span class="seat-place"></span> {{ 'web.extraServices.seat.disabled' | aliasStatic}}
+                    </li>
+                    <li ng-repeat="rfiscsPriceItem in vm.service.itemsByPassengerSegments[vm.selectedPassenger][vm.selectedFlight][0] track by $index" class="rfiscs-seat-label rfiscs-seat-label-{{ rfiscsPriceItem.rfisc }}">
+                      <span class="seat-place seat-rfisc-{{ rfiscsPriceItem.rfisc }}"></span>
+                      <!--span class="rfiscs-seat-label-cost" ng-bind-html="{ value: rfiscsPriceItem.price, currency: rfiscsPriceItem.currency } | price"></span-->
+                      <!--span class="rfiscs-seat-label-title">
+												{{ rfiscsPriceItem.title }}
+											</span-->
+                      <span class="rfiscs-seat-label-description" ng-bind-html=" rfiscsPriceItem.description | aliasDynamic "></span>
+                    </li>
+                    <wrap ng-if="vm.hasAlias('web.extraServices.seat.customLabels')" ng-bind-html=" 'web.extraServices.seat.customLabels' | aliasStatic"></wrap>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <div class="passengersTable">
+              <div ng-repeat="(flightNum, flight) in vm.orderInfo.plainFlights" ng-class="{ active: vm.selectedFlight == flightNum, disabled: !vm.service.availableBySegments[flightNum] && !vm.service.hasIssuedSeatsBySegments[flightNum] }" ng-click="(vm.service.availableBySegments[flightNum] || vm.service.hasIssuedSeatsBySegments[flightNum]) && vm.selectFlightPassenger(flightNum, 0)"
+                ng-if="vm.orderInfo.plainFlights.length > 1" class="passengersTable__segment">
+                <div class="passengersTable__segment__route">
+                  <div class="passengersTable__segment__route__departure">
+                    <div class="passengersTable__segment__route__departure__city">
+                      {{ flight.origincityName }}
+                    </div>
+                    <div ng-if="flight.originportName && flight.origincityName !== flight.originportName" class="passengersTable__segment__route__departure__port">
+                      {{ flight.originportName }}
+                    </div>
+                  </div>
+                  <div class="passengersTable__segment__route__dash"></div>
+                  <div class="passengersTable__segment__route__arrival">
+                    <div class="passengersTable__segment__route__arrival__city">
+                      {{ flight.destinationcityName }}
+                    </div>
+                    <div ng-if="flight.destinationportName && flight.destinationcityName !== flight.destinationportName" class="passengersTable__segment__route__arrival__port">
+                      {{ flight.destinationportName }}
+                    </div>
+                  </div>
+                  <div class="passengersTable__segment__route__wall"></div>
+                  <div class="passengersTable__segment__route__date">
+                    {{ flight.date | formatDate: 'D.M.Y'}}
+                  </div>
+                  <div class="passengersTable__segment__route__plane"></div>
+                </div>
+              </div>
+              <div ng-repeat="(flightNum, flight) in vm.orderInfo.plainFlights" class="passengersTable__segment-passengers" ng-class="{ active: vm.selectedFlight == flightNum }">
+                <div class="passengersTable__segment-passengers__passenger" ng-repeat="(passengerNum, passenger) in vm.orderInfo.passengers" ng-class="{ active: (vm.selectedFlight == flightNum && vm.selectedPassenger == passengerNum), selected: (vm.service.selectedSeatsByPassengerSegments[passengerNum][flightNum]), notSelected: (!vm.service.selectedSeatsByPassengerSegments[passengerNum][flightNum]) }">
+                  <div class="passengersTable__segment-passengers__passenger__name customCheckbox" ng-click="vm.selectFlightPassenger(flightNum, passengerNum)" ng-if="vm.service.availableByPassengerSegments[passengerNum][flightNum] || vm.service.issuedSeatsByPassengerSegments[passengerNum][flightNum]">
+                    <input type="checkbox" checked ng-if="vm.selectedFlight == flightNum && vm.selectedPassenger == passengerNum">
+                    <span></span> {{ passenger.lastName }} {{ passenger.firstName }}
+                  </div>
+                  <div class="passengersTable__segment-passengers__passenger__name passengersTable__segment-passengers__passenger__name_rmg" ng-if="!vm.service.availableByPassengerSegments[passengerNum] && !passenger.hasSeats">
+                    <i class="icon_child-discount"></i> {{ passenger.lastName }} {{ passenger.firstName }}
+                  </div>
+                  <div class="passengersTable__segment-passengers__passenger__info" ng-if="vm.service.availableByPassengerSegments[passengerNum][flightNum] || vm.service.issuedSeatsByPassengerSegments[passengerNum][flightNum]">
+                    <div class="passengersTable__segment-passengers__passenger__info__seat">
+                      <div class="passengersTable__segment-passengers__passenger__info__seat__text">
+                        {{ 'web.extraServices.seat.seatText' | aliasStatic}}
+                      </div>
+                      <div class="passengersTable__segment-passengers__passenger__info__seat__number" ng-if="vm.service.selectedSeatsByPassengerSegments[passengerNum][flightNum]">
+                        {{ vm.service.selectedSeatsByPassengerSegments[passengerNum][flightNum].value }}
+                      </div>
+                      <div class="passengersTable__segment-passengers__passenger__info__seat__number" ng-if="vm.service.issuedSeatsByPassengerSegments[passengerNum][flightNum]">
+                        {{ vm.service.issuedSeatsByPassengerSegments[passengerNum][flightNum].value }}
+                      </div>
+                      <div class="passengersTable__segment-passengers__passenger__info__seat__no-number" ng-if="!vm.service.selectedSeatsByPassengerSegments[passengerNum][flightNum] && !vm.service.issuedSeatsByPassengerSegments[passengerNum][flightNum]">
+                        {{ 'web.extraServices.seat.noSeatSelected' | aliasStatic}}
+                      </div>
+                    </div>
+                    <div class="passengersTable__segment-passengers__passenger__info__price">
+                      <div class="passengersTable__segment-passengers__passenger__info__price__text">
+                        {{ 'web.extraServices.seat.seatPrice' | aliasStatic}}
+                      </div>
+                      <div class="passengersTable__segment-passengers__passenger__info__price__money" ng-if="vm.service.selectedSeatsByPassengerSegments[passengerNum][flightNum]" ng-bind-html="{ value: vm.service.selectedSeatsByPassengerSegments[passengerNum][flightNum].totalPrice, currency: vm.service.selectedSeatsByPassengerSegments[passengerNum][flightNum].currency } | price">
+                      </div>
+                      <div class="passengersTable__segment-passengers__passenger__info__price__money" ng-if="vm.service.issuedSeatsByPassengerSegments[passengerNum][flightNum]" ng-bind-html="{ value: vm.service.issuedSeatsByPassengerSegments[passengerNum][flightNum].totalPrice, currency: vm.service.issuedSeatsByPassengerSegments[passengerNum][flightNum].currency } | price">
+                      </div>
+                      <div class="passengersTable__segment-passengers__passenger__info__price__money" ng-if="!vm.service.selectedSeatsByPassengerSegments[passengerNum][flightNum] && !vm.service.issuedSeatsByPassengerSegments[passengerNum][flightNum]">
+                        0 <span class="currency_sign">₽</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="passengersTable__cancel">
+                <a href ng-click="vm.switchService()" ng-class="{ control_disabled: vm.locked }" class="btn active">
+									<span class="hide">
+										{{ 'web.extraServices.seat.deselect' | aliasStatic}}
+									</span>
+								</a>
+              </div>
+            </div>
+            <div class="passengersSeatMap">
+              <div ng-repeat="(flightNum, flight) in vm.orderInfo.plainFlights" ng-class="{ active: vm.selectedFlight == flightNum }" class="passengersSeatMap__segment">
+                <div ng-if="vm.loadingSeatMap" class="seat-map-loader" ng-bind-html=" 'web.extraServices.seat.loader' | aliasStatic"></div>
+
+                <div ng-if="vm.seatMapError" class="seat-map-error">
+                  {{ vm.seatMapError | aliasDynamic }}
+                </div>
+
+                <div ng-if="!vm.loadingSeatMap && vm.seatMap" class="col mobileHide customScroll_height customScroll_js" custom-scroll>
+                  <seat-map map="vm.seatMap" passenger="vm.selectedPassenger" flight="vm.selectedFlight" locked="vm.locked" selected="vm.service.selectedSeatsByPassengerSegments" set="vm.setPassengerFlightSeat" issued="vm.service.issuedSeatsByPassengerSegments">
+                  </seat-map>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+
+<div class="item__i mobileShow">
+
+  <div class="top">
+    <div class="top__i">
+      <a href>
+        <div class="row">
+          <table>
+            <tbody>
+              <tr>
+                <td><i class="icon_seat"></i></td>
+                <td>
+                  <div class="name">
+                    {{ 'web.extraServices.seat.header' | aliasStatic}}
+                    <a href class="js-mob-icon_info">
+                                            <span class="infoBoxWrap">
+                                                <i class="icon_info"></i>
+                                                <span class="infoBox js-mob-infoBox">
+                                                    <span class="infoBox__i" ng-bind-html="'web.extraServicesRules.seat' | aliasStatic"></span>
+                                                </span>
+                                            </span>
+                                        </a>
+                    <p>
+                      {{ 'web.extraServices.seat.desc' | aliasStatic}}
+                    </p>
+                    <div ng-if="vm.service.active && vm.service.editablePrice" class="price">
+                      <div class="price__i">
+                        <h3 ng-bind-html="{ value: vm.service.editablePrice.price, currency: vm.service.editablePrice.currency } | price"></h3>
+                      </div>
+                    </div>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </a>
+      <div class="row seatSelect" ng-class="{ active: vm.service.active }">
+        <a href ng-click="vm.switchService()" ng-class="{ active: vm.service.active, control_disabled: vm.locked }" class="btn showDrop_js ">
+					<span class="show">
+						{{ 'web.extraServices.seat.select' | aliasStatic}}
+					</span>
+				</a>
+        <a ng-class="{ active: vm.service.active, control_disabled: vm.locked }" class="btn dropdown-button ">
+					<span class="hide">
+						{{ 'web.extraServices.seat.deselect' | aliasStatic}}
+					</span>
+				</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="drop" ng-class="{ active: vm.service.active, show_js: vm.service.active }">
+    <div class="drop__i">
+      <div class="seatSelect drop_mobile">
+        <div class="seatSelect__i">
+
+          <div class="passengersTableSeat__wrapper" ng-class="{ one_passenger: (vm.orderInfo.passengers.length == 1) }">
+            <div class="passengersTable">
+              <div ng-repeat="(flightNum, flight) in vm.orderInfo.plainFlights" ng-class="{ active: vm.selectedFlight == flightNum, disabled: !vm.service.availableBySegments[flightNum] && !vm.service.hasIssuedSeatsBySegments[flightNum] }" ng-click="(vm.service.availableBySegments[flightNum] || vm.service.hasIssuedSeatsBySegments[flightNum]) && vm.selectFlightPassenger(flightNum, 0)"
+                ng-if="vm.orderInfo.plainFlights.length > 1" class="passengersTable__segment">
+                <div class="passengersTable__segment__route">
+                  <div class="passengersTable__segment__route__departure">
+                    <div class="passengersTable__segment__route__departure__city">
+                      {{ flight.origincityName }}
+                    </div>
+                    <div ng-if="flight.originportName && flight.origincityName !== flight.originportName" class="passengersTable__segment__route__departure__port">
+                      {{ flight.originportName }}
+                    </div>
+                  </div>
+                  <div class="passengersTable__segment__route__dash"></div>
+                  <div class="passengersTable__segment__route__arrival">
+                    <div class="passengersTable__segment__route__arrival__city">
+                      {{ flight.destinationcityName }}
+                    </div>
+                    <div ng-if="flight.destinationportName && flight.destinationcityName !== flight.destinationportName" class="passengersTable__segment__route__arrival__port">
+                      {{ flight.destinationportName }}
+                    </div>
+                  </div>
+                  <div class="passengersTable__segment__route__wall"></div>
+                  <div class="passengersTable__segment__route__date">
+                    {{ flight.date | formatDate: 'D.M.Y'}}
+                  </div>
+                  <div class="passengersTable__segment__route__plane"></div>
+                </div>
+              </div>
+              <div ng-repeat="(flightNum, flight) in vm.orderInfo.plainFlights" class="passengersTable__segment-passengers" ng-class="{ active: vm.selectedFlight == flightNum }">
+                <div class="passengersTable__segment-passengers__passenger" ng-repeat="(passengerNum, passenger) in vm.orderInfo.passengers" ng-class="{ active: (vm.selectedFlight == flightNum && vm.selectedPassenger == passengerNum), selected: (vm.service.selectedSeatsByPassengerSegments[passengerNum][flightNum]), notSelected: (!vm.service.selectedSeatsByPassengerSegments[passengerNum][flightNum]) }">
+                  <div class="passengersTable__segment-passengers__passenger__name">
+                    {{ passenger.lastName }} {{ passenger.firstName }}
+                    <i ng-if="!vm.service.availableByPassengerSegments[passengerNum] && !passenger.hasSeats" class="icon_child-discount"></i>
+                  </div>
+                  <div class="passengersTable__segment-passengers__passenger__info" ng-if="vm.service.availableByPassengerSegments[passengerNum][flightNum] || vm.service.issuedSeatsByPassengerSegments[passengerNum][flightNum]">
+                    <div class="passengersTable__segment-passengers__passenger__info__seat">
+                      <div class="passengersTable__segment-passengers__passenger__info__seat__text">{{ 'web.extraServices.seat.seatText' | aliasStatic }}</div>
+                      <div class="passengersTable__segment-passengers__passenger__info__seat__number" ng-class="{ selected: vm.service.selectedSeatsByPassengerSegments[passengerNum][flightNum] || vm.service.issuedSeatsByPassengerSegments[passengerNum][flightNum], notSelected: !vm.service.selectedSeatsByPassengerSegments[passengerNum][flightNum] && !vm.service.issuedSeatsByPassengerSegments[passengerNum][flightNum]}">
+                        <div class="passengersTable__segment-passengers__passenger__info__seat__number__value" ng-if="vm.service.selectedSeatsByPassengerSegments[passengerNum][flightNum]">
+                          {{ vm.service.selectedSeatsByPassengerSegments[passengerNum][flightNum].value }}
+                        </div>
+                        <div class="passengersTable__segment-passengers__passenger__info__seat__number__value" ng-if="vm.service.issuedSeatsByPassengerSegments[passengerNum][flightNum]">
+                          {{ vm.service.issuedSeatsByPassengerSegments[passengerNum][flightNum].value }}
+                        </div>
+                        <a ng-click="vm.selectFlightPassenger(flightNum, passengerNum)" href fancybox="popupSeat" class="passengersTable__segment-passengers__passenger__info__seat__number____link" ng-class="{ selected: vm.service.selectedSeatsByPassengerSegments[passengerNum][flightNum] || vm.service.issuedSeatsByPassengerSegments[passengerNum][flightNum], notSelected: !vm.service.selectedSeatsByPassengerSegments[passengerNum][flightNum] && !vm.service.issuedSeatsByPassengerSegments[passengerNum][flightNum]}">
+													<span ng-if="vm.service.selectedSeatsByPassengerSegments[passengerNum][flightNum]"
+														  class="passengersTable__segment-passengers__passenger__info__seat__number____link__text">
+														{{ 'web.extraServices.seat.changeSeat' | aliasStatic }}
+													</span>
+													<span ng-if="vm.service.issuedSeatsByPassengerSegments[passengerNum][flightNum]"
+														  class="passengersTable__segment-passengers__passenger__info__seat__number____link__text">
+														{{ 'web.extraServices.seat.lookOnSeat' | aliasStatic }}
+													</span>
+													<span ng-if="!vm.service.selectedSeatsByPassengerSegments[passengerNum][flightNum] && !vm.service.issuedSeatsByPassengerSegments[passengerNum][flightNum]"
+														  class="passengersTable__segment-passengers__passenger__info__seat__number____link__text">
+														{{ 'web.extraServices.seat.selectItem' | aliasStatic }}
+													</span>
+												</a>
+                      </div>
+                    </div>
+                    <div class="passengersTable__segment-passengers__passenger__info__price">
+                      <div class="passengersTable__segment-passengers__passenger__info__price__text">{{ 'web.extraServices.seat.seatPrice' | aliasStatic }}</div>
+                      <div class="passengersTable__segment-passengers__passenger__info__price__money" ng-if="vm.service.selectedSeatsByPassengerSegments[passengerNum][flightNum]" ng-bind-html="{ value: vm.service.selectedSeatsByPassengerSegments[passengerNum][flightNum].totalPrice, currency: vm.service.selectedSeatsByPassengerSegments[passengerNum][flightNum].currency } | price">
+                      </div>
+                      <div class="passengersTable__segment-passengers__passenger__info__price__money" ng-if="vm.service.issuedSeatsByPassengerSegments[passengerNum][flightNum]" ng-bind-html="{ value: vm.service.issuedSeatsByPassengerSegments[passengerNum][flightNum].totalPrice, currency: vm.service.issuedSeatsByPassengerSegments[passengerNum][flightNum].currency } | price">
+                      </div>
+                      <div class="passengersTable__segment-passengers__passenger__info__price__money" ng-if="!vm.service.selectedSeatsByPassengerSegments[passengerNum][flightNum] && !vm.service.issuedSeatsByPassengerSegments[passengerNum][flightNum]">
+                        0 <span class="currency_sign">₽</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="passengersTable__cancel">
+            <a href ng-click="vm.switchService()" ng-class="{ control_disabled: vm.locked }" class="btn active">
+							<span class="hide">
+								{{ 'web.extraServices.seat.deselect' | aliasStatic}}
+							</span>
+						</a>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <popup-seat map="vm.seatMap" sun="vm.sunInfoByFlights[vm.selectedFlight]" order="vm.orderInfo" passenger="vm.selectedPassenger" flight="vm.selectedFlight" locked="vm.locked" select-handler="vm.setPassengerFlightSeat" remove-handler="vm.removePassengerFlightSeat"
+    selected="vm.service.selectedSeatsByPassengerSegments" subgroups="vm.service.subgroups" items="vm.service.itemsByPassengerSegments" issued="vm.service.issuedSeatsByPassengerSegments">
+  </popup-seat>
+
+</div>
