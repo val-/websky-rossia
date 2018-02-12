@@ -40,22 +40,42 @@
               </div>
             </td>
 
-            <td>
+            <div style="display: none">
+              {{ vm.checkAllChoose() }}
+            </div>
+
+            <td ng-if="!vm.checkAllChoose()">
+
               <a href ng-click="vm.switchService()" ng-class="{ active: vm.service.active, control_disabled: vm.locked }" class="btn showDrop_js ">
                 <span class="show">
-                  {{ 'web.extraServices.seat.select' | aliasStatic}}
+                  {{ 'web.extraServices.meal.select' | aliasStatic}}
                 </span>
               </a>
+
               <a ng-class="{ active: vm.service.active, control_disabled: vm.locked }" class="btn dropdown-button ">
+                <span class="show">
+                  {{ 'web.extraServices.meal.select' | aliasStatic}}
+                </span>
 								<span class="hide">
-                  {{ 'web.extraServices.seat.deselect' | aliasStatic}}
+                  {{ 'web.extraServices.meal.deselect' | aliasStatic}}
                 </span>
 							</a>
 
-              <div style="display: none">
-                asdasdasdasda
-              </div>
             </td>
+
+            <td ng-if="vm.checkAllChoose()">
+              <!-- <a ng-class="{ active: vm.service.active, control_disabled: vm.locked }" class="btn dropdown-button ">
+								<span class="hide">
+                  {{ 'web.extraServices.meal.deselect' | aliasStatic}}
+                </span>
+							</a> -->
+              <a ng-class="{ active: vm.service.active, control_disabled: vm.locked }" class="btn-arrow btn dropdown-button ">
+                <span class="arrow__icon">
+
+                </span>
+              </a>
+            </td>
+
           </tr>
         </tbody>
       </table>
@@ -100,7 +120,9 @@
                   <!--  -->
                 </td>
                 <!-- end firstCol -->
-                <td ng-repeat="(passengerNum, passenger) in vm.orderInfo.passengers" ng-class="{ active: vm.selectedFlight == flightNum && vm.selectedPassenger == passengerNum }" ng-init="selectedPassengerFlightMeal = vm.getSelectedPassengerFlightMeal(passengerNum, flightNum)">
+                <td ng-repeat="(passengerNum, passenger) in vm.orderInfo.passengers"
+                ng-class="{ active: vm.selectedFlight == flightNum && vm.selectedPassenger == passengerNum }"
+                ng-init="selectedPassengerFlightMeal = vm.getSelectedPassengerFlightMeal(passengerNum, flightNum)">
 
                   <wrap ng-if="vm.service.availableByPassengerSegments[passengerNum][flightNum]">
                     <a href ng-click="vm.selectFlightPassenger(flightNum, passengerNum)" class="passengersTable__link" ng-class="{ passengersTable__link_empty: !selectedPassengerFlightMeal, passengersTable__link_select: (!selectedPassengerFlightMeal && vm.selectedFlight == flightNum && vm.selectedPassenger == passengerNum) }">
