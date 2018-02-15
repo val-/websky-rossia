@@ -385,10 +385,6 @@
                    ng-class="{ active: vm.selectedFlight == flightNum }"
                    class="passengersTable__segment-passengers">
 
-                <span style="display: none">
-                  если сегмент доступен
-                </span>
-
                 <div class="passengersTable__segment-passengers__passenger" ng-repeat="(passengerNum, passenger) in vm.orderInfo.passengers" ng-class="{ active: (vm.selectedFlight == flightNum && vm.selectedPassenger == passengerNum) }" ng-init="selectedPassengerFlightMeal = vm.getSelectedPassengerFlightMeal(passengerNum, flightNum)">
 
                   <div class="passengersTable__segment-passengers__passenger__wrap">

@@ -1,6 +1,6 @@
 angular.module('app').component('popupMealRossiya', {
 	templateUrl: 'components/popup-meal-rossiya/popup-meal-rossiya.html',
-	controller: ['utils', PopupMealRossiyaController],
+	controller: ['utils', '$scope', PopupMealRossiyaController],
 	controllerAs: 'vm',
 	bindings: {
 		mealMenu: '=menu',
@@ -19,7 +19,7 @@ angular.module('app').component('popupMealRossiya', {
 	}
 });
 
-function PopupMealRossiyaController(utils) {
+function PopupMealRossiyaController(utils, $scope) {
 
 	var vm = this;
 	vm.close = jQuery.fancybox.close;
@@ -29,13 +29,19 @@ function PopupMealRossiyaController(utils) {
 	vm.subgroupItems = utils.createOptionsForUiSelect(vm.subgroups, 'all');
 	vm.switchNext = switchNext;
 	vm.switchPrev = switchPrev;
-	
-	vm.availablePassengers = vm.passengers.filter(function (passenger, index) {
-        return (
-            vm.service.availableByPassengerSegments[index] &&
-            vm.service.availableByPassengerSegments[index][vm.currentFlightIndex]
-        );
-    });
+
+	function setAvailablePassengers() {
+		vm.availablePassengers = vm.passengers.filter(function (passenger, index) {
+					return (
+							vm.service.availableByPassengerSegments[index] &&
+							vm.service.availableByPassengerSegments[index][vm.currentFlightIndex]
+					);
+			});
+	}
+
+	$scope.$watch('vm.currentFlightIndex', function () {
+		setAvailablePassengers();
+	});
 
 	function mealMenuSubgroupMobileChange() {
 		if (vm.mealMenuSubgroupMobile === false) {
@@ -44,7 +50,7 @@ function PopupMealRossiyaController(utils) {
 			vm.mealMenuSubgroup = vm.mealMenuSubgroupMobile * 1;
 		}
 	}
-	
+
 	function switchNext() {
 		var successSwitch = false;
 		for (var i = vm.currentPassengerIndex + 1; i < vm.passengers.length; i++) {
