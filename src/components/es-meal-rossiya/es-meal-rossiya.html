@@ -400,7 +400,7 @@
                      ng-class="{ active: (vm.selectedFlight == flightNum && vm.selectedPassenger == passengerNum) }"
                      ng-init="selectedPassengerFlightMeal = vm.getSelectedPassengerFlightMeal(passengerNum, flightNum)">
 
-                  <wrap ng-if="vm.service.availableByPassengerSegments[passengerNum][flightNum]">
+                  <div ng-if="vm.service.availableByPassengerSegments[passengerNum][flightNum]">
 
                     <div class="passengersTable__segment-passengers__passenger__wrap">
 
@@ -412,12 +412,11 @@
                       <!-- end passengersTable__segment-passengers__passenger__name -->
 
                       <a href
+                        class="passengersTable__segment-passengers__passenger__wrap__link"
                         fancybox="popupMeal"
                         ng-click="vm.selectFlightPassenger(flightNum, passengerNum)"
                         ng-if="!selectedPassengerFlightMeal && vm.service.availableByPassengerSegments[passengerNum]">
-                        <wrap>
                           {{ 'web.extraServices.meal.noneSelected' | aliasStatic}}
-                        </wrap>
                       </a>
 
                     </div>
@@ -448,9 +447,9 @@
 
                     </div>
                     <!-- end passengersTable__segment-passengers__passenger__meals -->
-                  </wrap>
+                  </div>
 
-                  <wrap ng-if="!vm.service.availableByPassengerSegments[passengerNum][flightNum]">
+                  <div ng-if="!vm.service.availableByPassengerSegments[passengerNum][flightNum]">
                     <div class="passengersTable__segment-passengers__passenger__wrap">
 
                       <!-- passengersTable__segment-passengers__passenger__name -->
@@ -462,19 +461,20 @@
 
                     </div>
 
-                    <wrap ng-if="vm.orderInfo.groupedIssuedExtraServices.meal[passengerNum][flightNum].length">
-                      <div ng-repeat="issuedMealItem in vm.orderInfo.groupedIssuedExtraServices.meal[passengerNum][flightNum]">
+                    <div ng-if="vm.orderInfo.groupedIssuedExtraServices.meal[passengerNum][flightNum].length">
+                      <div class="passengersTable__segment-passengers__passenger__meals"
+                           ng-repeat="issuedMealItem in vm.orderInfo.groupedIssuedExtraServices.meal[passengerNum][flightNum]">
                         <span>
                           {{ issuedMealItem.title }}
                         </span>
 
-                        <span>
+                          <span class="passengersTable__segment-passengers__passenger__meals__issued">
                           {{ 'web.serviceStatus.issued' | aliasStatic }}
                         </span>
                       </div>
-                    </wrap>
+                    </div>
 
-                  </wrap>
+                  </div>
 
                 </div>
               </div>
