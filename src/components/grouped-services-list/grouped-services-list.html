@@ -319,7 +319,7 @@
 <div ng-if="vm.mode == 'editable'">
   <wrap ng-if="vm.orderInfo[ vm.mode + 'ExtraServicesByPassengers' ].length">
 
-      <div ng-repeat="extraService in vm.orderInfo.all_extra_services"
+      <div ng-repeat="extraService in vm.orderInfo.all_extra_services | orderBy:'code' : true "
   		 class="included-service included-service__{{ extraService.code }}"
   		 ng-if="!extraService.empty && vm.orderInfo['pricesNotIssued'].totalExtraServiceByGroup[extraService.code]">
 
@@ -350,12 +350,7 @@
     			<div ng-if="vm.orderInfo[ vm.mode + 'ExtraServicesByPassengers' ][passengerNumber].passengerSegmentServices"
     				 class="included-service__passenger__services">
 
-            <!-- <div class="included-service__passenger__services__segment"
-    					 ng-if="vm.orderInfo[ vm.mode + 'ExtraServicesByPassengers' ][passengerNumber].passengerSegmentServices[segmentNumber]"> -->
-
             <div class="included-service__passenger__services__segment">
-
-              <!-- ng-if="extraService.code == passengerSegmentService.code -->
 
     					<div ng-repeat="passengerSegmentService in vm.orderInfo[ vm.mode + 'ExtraServicesByPassengers' ][passengerNumber].passengerSegmentServices"
                    ng-if="extraService.code == passengerSegmentService[0].code && passengerSegmentService">
