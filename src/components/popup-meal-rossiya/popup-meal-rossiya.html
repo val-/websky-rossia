@@ -55,7 +55,10 @@
             <div class="itemOrderInfo">
               <div ng-repeat="(subgroupNum, subgroup) in vm.mealMenu">
                 <div ng-repeat="mealItem in subgroup" ng-if="mealItem.active" class="itemOrderInfo-row">
-                  <span>{{ mealItem.title }}</span>
+                  <!-- <span>{{ mealItem.title }}</span> -->
+                  <span>
+                      {{ 'web.extraServices.' + mealItem.rfisc + '.' + mealItem.serviceType +'.ALL.text' | aliasStatic }}
+                  </span>
 
                   <span class="itemOrderInfo-row__price">
                     <span ng-bind-html="{ value: mealItem.price, currency: mealItem.currency } | price"></span>

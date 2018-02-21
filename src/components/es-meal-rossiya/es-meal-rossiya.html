@@ -130,7 +130,8 @@
                       </wrap>
 
                       <wrap ng-if="selectedPassengerFlightMeal">
-                        {{ selectedPassengerFlightMeal.title }}
+                        <!-- {{ selectedPassengerFlightMeal.title }} -->
+                        {{ 'web.extraServices.' + selectedPassengerFlightMeal.rfisc + '.' + selectedPassengerFlightMeal.serviceType +'.ALL.text' | aliasStatic }}
                       </wrap>
 
                     </a>
@@ -156,7 +157,8 @@
                   <wrap ng-if="vm.orderInfo.groupedIssuedExtraServices.meal[passengerNum][flightNum].length">
                     <!-- {{ 'web.extraServices.meal.issuedMealLabel' | aliasStatic}} -->
                     <div ng-repeat="issuedMealItem in vm.orderInfo.groupedIssuedExtraServices.meal[passengerNum][flightNum]" class="issuedMealItem">
-                      {{ issuedMealItem.title }}
+                      <!-- {{ issuedMealItem.title }} -->
+                      {{ 'web.extraServices.' + issuedMealItem.rfisc + '.' + issuedMealItem.serviceType +'.ALL.text' | aliasStatic }}
                       <!-- <span class="passengersTable__priceMeal" ng-bind-html="{ value: issuedMealItem.totalPrice, currency: issuedMealItem.currency } | price"></span> -->
                       <span class="issuedMealItem__paid">
                         {{ 'web.serviceStatus.issued' | aliasStatic }}
@@ -425,7 +427,8 @@
                     <div class="passengersTable__segment-passengers__passenger__meals" ng-if="selectedPassengerFlightMeal">
                       <!-- passengersTable__priceSeat  (цена с крестиком)-->
                       <div class="passengersTable__segment-passengers__passenger__meal__title">
-                        {{ selectedPassengerFlightMeal.title }}
+                        <!-- {{ selectedPassengerFlightMeal.title }} -->
+                        {{ 'web.extraServices.' + selectedPassengerFlightMeal.rfisc + '.' + selectedPassengerFlightMeal.serviceType +'.ALL.text' | aliasStatic }}
                       </div>
 
                       <div class="passengersTable__segment-passengers__passenger__meal__price">
@@ -465,7 +468,8 @@
                       <div class="passengersTable__segment-passengers__passenger__meals"
                            ng-repeat="issuedMealItem in vm.orderInfo.groupedIssuedExtraServices.meal[passengerNum][flightNum]">
                         <span>
-                          {{ issuedMealItem.title }}
+                          <!-- {{ issuedMealItem.title }} -->
+                          {{ 'web.extraServices.' + issuedMealItem.rfisc + '.' + issuedMealItem.serviceType +'.ALL.text' | aliasStatic }}
                         </span>
 
                           <span class="passengersTable__segment-passengers__passenger__meals__issued">
