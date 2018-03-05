@@ -217,29 +217,13 @@
           <table>
             <tbody>
               <tr>
-                <td><i class="icon_seat"></i></td>
+                <td><i class="icon_meal"></i></td>
                 <td>
                   <div class="name">
                     {{ 'web.extraServices.seat.header' | aliasStatic}}
-
-                    <a href class="js-mob-icon_info">
-                      <span class="infoBoxWrap">
-                        <i class="icon_info"></i>
-                        <span class="infoBox infoBox_mobile">
-                          <span class="infoBox__i" ng-bind-html="'web.extraServicesRules.seat' | aliasStatic"></span>
-                        </span>
-                      </span>
-                    </a>
-
-                    <!-- <a href>
-                      <span class="infoBoxWrap">
-                        <i class="icon_info"></i>
-                        <span class="infoBox">
-                          <span class="infoBox__i" ng-bind-html="'web.extraServicesRules.seat' | aliasStatic"></span>
-                        </span>
-                      </span>
-                    </a> -->
-
+                    <a href fancybox="popupAlias" data-popup-alias="web.extraServicesRules.meal">
+                                            <i class="icon_info"></i>
+                                        </a>
                     <p>
                       {{ 'web.extraServices.seat.desc' | aliasStatic}}
                     </p>
@@ -249,6 +233,12 @@
                       </div>
                     </div>
                   </div>
+                </td>
+                <td>
+                  <a ng-class="{ active: vm.service.active }" class="btn dropdown-meal">
+                    <span class="open-meal"></span>
+                    <span class="hide-meal"></span>
+                  </a>
                 </td>
               </tr>
             </tbody>
