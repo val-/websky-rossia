@@ -42,13 +42,13 @@
 
             <td ng-if="!vm.checkAllChoose()">
 
-              <a href ng-click="vm.switchService()" ng-class="{ active: vm.service.active, control_disabled: vm.locked }" class="btn showDrop_js ">
+              <a href ng-click="vm.switchService()" ng-class="{ active: vm.service.active, control_disabled: vm.locked }" class="btn showDrop_js">
                 <span class="show">
                   {{ 'web.extraServices.meal.select' | aliasStatic}}
                 </span>
               </a>
 
-              <a ng-class="{ active: vm.service.active, control_disabled: vm.locked }" class="btn dropdown-button ">
+              <a ng-class="{ active: vm.service.active, control_disabled: vm.locked }" class="btn dropdown-button">
                 <span class="show">
                   {{ 'web.extraServices.meal.select' | aliasStatic}}
                 </span>
@@ -61,9 +61,7 @@
 
             <td ng-if="vm.checkAllChoose()">
               <a ng-class="{ active: vm.service.active, control_disabled: vm.locked }" class="btn-arrow btn dropdown-button ">
-                <span class="arrow__icon">
-
-                </span>
+                <span class="arrow__icon"></span>
               </a>
             </td>
 

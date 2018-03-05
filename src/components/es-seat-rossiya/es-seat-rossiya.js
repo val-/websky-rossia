@@ -244,34 +244,16 @@ function SeatRossiyaController($scope, $element, $timeout, backend, utils) {
     }
 
     function checkAllChoose() {
-      // vm.orderInfo.passengers пассажиры
-      // vm.orderInfo.plainFlights рейсы
-      // vm.service.availableByPassengerSegments
-      // vm.orderInfo.editableExtraServicesByPassengers
-      // здесть храняться купленные или выбранные услуги, все даже seat
-      // getSelectedPassengerFlightMeal(passengerNum, flightNum) он ципляет только если выбрано место и возвращает объект
-      // В это количество доступных рейсов где можно купить что-то и это количество должно совпадать с trueChoose
-      var trueFlight = 0;
-      // В этой перемнной храниться количество выбранных мест
-      var trueChoose = 0;
-
-      for (var i = 0; i < vm.service.availableByPassengerSegments.length; i++) {
-        for (var j = 0; j < vm.service.availableByPassengerSegments[i].length; j++) {
-          if(vm.service.availableByPassengerSegments[i][j]) {
-            trueFlight++;
-          }
-        }
-      }
 
       for (var i = 0; i < vm.orderInfo.plainFlights.length; i++) {
         for (var j = 0; j < vm.orderInfo.passengers.length; j++) {
           if (getSelectedPassengerFlightMeal(j, i)) {
-            trueChoose++;
+            return true
           }
         }
       }
 
-      return trueChoose == trueFlight;
+      return false;
 
     }
 
