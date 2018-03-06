@@ -29,6 +29,7 @@ function PopupMealRossiyaController(utils, $scope) {
 	vm.subgroupItems = utils.createOptionsForUiSelect(vm.subgroups, 'all');
 	vm.switchNext = switchNext;
 	vm.switchPrev = switchPrev;
+	vm.arrayString = arrayString;
 
 	function setAvailablePassengers() {
 		vm.availablePassengers = vm.passengers.filter(function (passenger, index) {
@@ -99,6 +100,19 @@ function PopupMealRossiyaController(utils, $scope) {
 				}
 			}
 		}
+	}
+
+	function arrayString(arrays) {
+
+		var total = arrays.reduce(function(flat, current) {
+			return flat.concat(current);
+		}, []);
+
+		if(vm.mealMenuSubgroup === false ) {
+		  return total;
+		}
+
+		return arrays;
 	}
 
 }
