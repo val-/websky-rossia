@@ -99,9 +99,11 @@
                 <wrap ng-if="vm.mealMenuSubgroup === false">
 
                   <div ng-repeat="mealItem in vm.arrayString(vm.mealMenu)"
-                       ng-class="{ active: mealItem.active }" class="item">
+                       ng-class="{ active: mealItem.active }"
+                       ng-init="submeal = vm.getGroupMeal(mealItem, vm.mealMenu)"
+                       class="item">
 
-                    <a href ng-if="!mealItem.active" ng-click="vm.setPassengerFlightMeal(subgroupNum, mealItem)">
+                    <a href ng-if="!mealItem.active" ng-click="vm.setPassengerFlightMeal(submeal, mealItem)">
                       <div class="img">
                         <img ng-src="{{vm.mealImagesPath}}/{{ mealItem.serviceType }}-{{ mealItem.rfisc }}.jpg" alt="" />
                       </div>

@@ -30,6 +30,7 @@ function PopupMealRossiyaController(utils, $scope) {
 	vm.switchNext = switchNext;
 	vm.switchPrev = switchPrev;
 	vm.arrayString = arrayString;
+	vm.getGroupMeal = getGroupMeal;
 
 	function setAvailablePassengers() {
 		vm.availablePassengers = vm.passengers.filter(function (passenger, index) {
@@ -113,6 +114,17 @@ function PopupMealRossiyaController(utils, $scope) {
 		}
 
 		return arrays;
+	}
+
+	function getGroupMeal(meal, arrays) {
+
+		for (var i = 0; i < arrays.length; i++) {
+			for(var j = 0; j < arrays[i].length; j++) {
+				if (arrays[i][j]['rfisc'] == meal['rfisc']) {
+					return i;
+				}
+			}
+		}
 	}
 
 }
