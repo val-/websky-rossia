@@ -105,13 +105,13 @@ function PopupMealRossiyaController(utils, $scope) {
 
 	function arrayString(arrays) {
 
+		if(!Array.isArray(arrays)) return;
+
 		var total = arrays.reduce(function(flat, current) {
 			return flat.concat(current);
 		}, []);
 
-		if(vm.mealMenuSubgroup === false ) {
-		  return total;
-		}
+		if(vm.mealMenuSubgroup === false ) return total;
 
 		return arrays;
 	}
