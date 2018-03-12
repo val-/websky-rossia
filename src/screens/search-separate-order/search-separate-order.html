@@ -1,0 +1,153 @@
+<app-loader ng-if="vm.loading || vm.searchLoading"></app-loader>
+
+<section ng-if="!vm.loading" class="out">
+
+  <app-header></app-header>
+
+
+  <div ng-if="!vm.searchLoading" class="content">
+    <div class="wrap wrap_pt32">
+      <div class="content__i">
+
+        <div class="search-order-form-header" ng-bind-html=" 'web.separateOrder.form.header' | aliasStatic"></div>
+
+        <div ng-if="vm.errorMessage" class="infoMessage infoMessage_error">
+          <div class="infoMessage__i">
+              <p>{{ vm.errorMessage | aliasDynamic }}</p>
+          </div>
+        </div>
+
+        <separate-order-passengers-list ng-if="vm.passengers.length" passengers="vm.passengers"></separate-order-passengers-list>
+
+        <div ng-if="vm.showSearchForm" class="orderSearchForm orderSearchForm_change" style="display: block;">
+          <div class="orderSearchForm__i">
+
+            <div class="formBody">
+              <form class="formBody__i" name="vm.searchOrderForm" ng-submit="vm.submitSearch();"
+                    form-submit-error-highlight novalidate>
+
+
+                <div class="formBodyItem">
+                  <div class="steps active">
+
+                    <div class="steps__i">
+
+                      <div class="item item_order_search_params">
+                        <div class="item__i">
+
+
+                          <div class="col">
+                            <div class="inp">
+                              <div class="inp__i">
+                                <error-message
+                                        control="vm.searchOrderForm.ticket"
+                                        format-alias="'web.messages.formatTicket'"
+                                        touched="vm.submitTouched">
+                                </error-message>
+                                <input type="text"
+                                       tabindex="3"
+                                       placeholder="{{ 'web.separateOrder.form.ticket' | aliasStatic}}"
+                                       class="textInp"
+                                       name="ticket"
+                                       ng-model="vm.searchParams.ticket"
+                                       ng-pattern="vm.ticketRegexp"
+                                       maxlength="26"
+                                       clean-search-order-param
+                                       error-highlight="{{ vm.submitTouched }}"
+                                       required/>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col">
+                            <div class="inp">
+                              <div class="inp__i">
+                                <error-message
+                                        control="vm.searchOrderForm.lastName"
+                                        format-alias="'web.messages.formatLastName'"
+                                        touched="vm.submitTouched">
+                                </error-message>
+                                <input type="text"
+                                       tabindex="4"
+                                       placeholder="{{ 'web.separateOrder.form.lastName' | aliasStatic}}"
+                                       class="textInp"
+                                       name="lastName"
+                                       ng-model="vm.searchParams.lastName"
+                                       ng-pattern="vm.passengerLastNameRegexp"
+                                       maxlength="50"
+                                       clean-search-order-param
+                                       error-highlight="{{ vm.submitTouched }}"
+                                       required/>
+                              </div>
+                            </div>
+                          </div>
+
+
+                        </div>
+                      </div>
+
+
+                      <button class="btn btn_search btn_formSearch btn_formSearch_js"
+                          ng-class="{ disabled: (!vm.searchOrderAgree && ('site.useSearchOrderAgreeCheckbox' | param)) }">
+                        {{ 'web.separateOrder.form.searchButton' | aliasStatic}}
+                      </button>
+
+                    </div>
+
+                  </div>
+                </div>
+
+                <div ng-if=" 'site.useSearchOrderAgreeCheckbox' | param " class="iconfirm">
+                    <div class="iconfirm__i">
+                        <div class="customCheckbox">
+                            <label><input type="checkbox" id="searchOrderAgreeChb" ng-model="vm.searchOrderAgree"/><span></span></label>
+                        </div>
+                        <p>
+                            <label for="searchOrderAgreeChb">
+                                <wrap ng-bind-html=" 'web.searchOrderAgree' | aliasStatic"></wrap>
+                            </label>
+                        </p>
+                    </div>
+                </div>
+
+                <div class="search-order-form-footer" ng-bind-html=" 'web.separateOrder.form.footer' | aliasStatic"></div>
+
+              </form>
+            </div>
+
+            <div class="searchOrderDesc">
+              <div class="searchOrderDesc__title">
+                {{ 'web.order.form.underFormTitle' | aliasStatic }}
+              </div>
+              <div class="searchOrderDesc__text">
+                {{ 'web.order.form.underFormText' |  aliasStatic }}
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <div ng-if="vm.passengers.length" class="searchResultsControl">
+            <div class="searchResultsControl__i">
+                <a href ng-if="!vm.showSearchForm" ng-click="vm.addPassenger();" class="btn btn_back btn_noArrow">
+                    {{ 'web.separateOrder.button.addPassenger' | aliasStatic}}
+                </a>
+                <a href ng-if="!vm.showSearchForm" ng-click="vm.clear();" class="btn btn_back btn_clear btn_noArrow">
+                    {{ 'web.separateOrder.button.clear' | aliasStatic}}
+                </a>
+                <a href ng-click="vm.confirmHandler()" class="btn btn_next btn_noArrow">
+                    {{ 'web.separateOrder.button.gotoOrder' | aliasStatic}}
+                </a>
+            </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <div class="push"></div>
+
+</section>
+
+<popup-confirm-goto-separate-order ng-if="!vm.searchLoading && !vm.loading" passengers="vm.passengers"></popup-confirm-goto-separate-order>
+
+<app-footer ng-if="!vm.loading"></app-footer>
