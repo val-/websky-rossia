@@ -48,9 +48,17 @@
                 </span>
               </a>
 
-              <a ng-class="{ active: vm.service.active, control_disabled: vm.locked }" class="btn-arrow btn dropdown-button ">
-                <span class="arrow__icon"></span>
-              </a>
+              <div class="btn-group">
+                <a ng-class="{ active_choose: vm.service.active }" class="btn-arrow btn-arrow_choose-none">
+                  <span class="arrow__icon"></span>
+                </a>
+
+                <a class="btn btn_choose-none">
+                  <span class="show">
+                    {{ 'web.extraServices.meal.select' | aliasStatic}}
+                  </span>
+  							</a>
+              </div>
 
             </td>
 
