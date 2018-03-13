@@ -305,10 +305,20 @@
                 </td>
 
                 <td ng-if="vm.checkAllChoose()">
-                  <a class="btn dropdown-meal active">
+                  <a ng-class="{ active: vm.service.active }" class="btn dropdown-meal">
                     <span class="open-meal"></span>
                     <span class="hide-meal"></span>
                   </a>
+                </td>
+
+                <td ng-if="!vm.checkAllChoose()">
+
+                  <div class="btn-group">
+                    <a ng-class="{ active_choose: vm.service.active }" class="btn-arrow btn-arrow_choose-none">
+                      <span class="hide-meal"></span>
+                    </a>
+                  </div>
+
                 </td>
 
               </tr>
@@ -318,20 +328,20 @@
       </a>
       <div ng-if="!vm.checkAllChoose()" class="row seatSelect" ng-class="{ active: vm.service.active }">
 
-          <a href ng-click="vm.switchService()" ng-class="{ active: vm.service.active, control_disabled: vm.locked }" class="btn showDrop_js">
-            <span class="show">
-              {{ 'web.extraServices.meal.select' | aliasStatic}}
-            </span>
-          </a>
+        <a href ng-click="vm.switchService()" ng-class="{ active: vm.service.active, control_disabled: vm.locked }" class="btn showDrop_js">
+          <span class="show">
+            {{ 'web.extraServices.meal.select' | aliasStatic}}
+          </span>
+        </a>
 
-          <a ng-class="{ active: vm.service.active, control_disabled: vm.locked }" class="btn dropdown-button">
+        <div class="btn-group">
+
+          <a class="btn btn_choose-none">
             <span class="show">
               {{ 'web.extraServices.meal.select' | aliasStatic}}
             </span>
-            <span class="hide">
-              {{ 'web.extraServices.meal.deselect' | aliasStatic}}
-            </span>
           </a>
+        </div>
 
       </div>
     </div>
