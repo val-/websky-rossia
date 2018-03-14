@@ -152,7 +152,7 @@
           </div>
         </div>
       </div>
-      <div class="item dropWrapper" ng-class="{ active: !vm.dropState[1] }">
+      <div class="item dropWrapper" ng-class="{ active: vm.dropState[1] }">
         <div class="item__i">
           <div class="title">
             <a href ng-click="vm.dropState[1] = !vm.dropState[1]" class="openDrop">
@@ -165,7 +165,7 @@
                         </a>
           </div>
 
-          <div class="drop" ng-class="{ show_js: !vm.dropState[1] }">
+          <div class="drop" ng-class="{ show_js: vm.dropState[1] }">
             <div class="drop__i">
               <div class="passengerInvoiceInfo">
                 <div class="passengerInvoiceInfo__i">
