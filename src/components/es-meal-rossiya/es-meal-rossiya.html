@@ -49,11 +49,11 @@
               </a>
 
               <div class="btn-group">
-                <a ng-class="{ active_choose: vm.service.active }" class="btn-arrow btn-arrow_choose-none">
+                <a ng-class="{ active_choose: vm.service.active }" class="btn-arrow btn-arrow_choose-none-meal">
                   <span class="arrow__icon"></span>
                 </a>
 
-                <a class="btn btn_choose-none">
+                <a class="btn btn_choose-none-meal">
                   <span class="show">
                     {{ 'web.extraServices.meal.select' | aliasStatic}}
                   </span>
@@ -314,7 +314,7 @@
                 <td ng-if="!vm.checkAllChoose()">
 
                   <div class="btn-group">
-                    <a ng-class="{ active_choose: vm.service.active }" class="btn-arrow btn-arrow_choose-none">
+                    <a ng-class="{ active_choose: vm.service.active }" class="btn-arrow btn-arrow_choose-none-meal">
                       <span class="hide-meal"></span>
                     </a>
                   </div>
@@ -336,7 +336,7 @@
 
         <div class="btn-group">
 
-          <a class="btn btn_choose-none">
+          <a class="btn btn_choose-none-meal">
             <span class="show">
               {{ 'web.extraServices.meal.select' | aliasStatic}}
             </span>
