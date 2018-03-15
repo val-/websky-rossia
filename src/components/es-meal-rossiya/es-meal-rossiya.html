@@ -180,14 +180,14 @@
 
                         <!-- этот блок проверяет на каком сегменте пассажир сделал свой выбор и
                         в зависимости от этого переходит на соответствующую группу. -->
-                        <div style="display: none"
+                        <!-- <div style="display: none"
                              ng-repeat="(subgroupNum, subgroup) in vm.mealMenu">
 
                           <span ng-repeat="mealItem in subgroup" ng-if="mealItem.active" ng-init="vm.mealMenuSubgroup = subgroupNum">
-                            vm.mealMenuSubgroup -- {{ vm.mealMenuSubgroup }} -- subgroupNum {{ subgroupNum }}
+                            vm.mealMenuSubgroup  {{ vm.mealMenuSubgroup }}  subgroupNum {{ subgroupNum }}
                           </span>
 
-                        </div>
+                        </div> -->
                         <!--  -->
 
                         <div ng-if=" vm.service.subgroups.length > 1 " class="foodSorting">
@@ -206,8 +206,8 @@
 
                             <wrap ng-repeat="(subgroupNum, subgroup) in vm.mealMenu">
 
-                              <!--  -->
-                              <div ng-repeat="mealItem in subgroup"
+                              <!-- Этот блок служит для вывода активного блюда самым первым -->
+                              <!-- <div ng-repeat="mealItem in subgroup"
                                    ng-if=" vm.mealMenuSubgroup === subgroupNum && mealItem.active"
                                    ng-class="{ active: mealItem.active }"
                                    ng-click="vm.setPassengerFlightMeal(subgroupNum, mealItem)" class="item">
@@ -228,7 +228,7 @@
                                     </div>
                                   </div>
                                 </div>
-                              </div>
+                              </div> -->
                               <!--  -->
 
                               <div ng-repeat="mealItem in subgroup"
