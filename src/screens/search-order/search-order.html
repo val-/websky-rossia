@@ -31,18 +31,20 @@
                             <div class="inp">
                               <div class="inp__i">
                                 <error-message
-                                        control="vm.searchOrderForm.pnr"
+                                        control="vm.searchOrderForm.pnrOrTicketNumber"
+                                        format-alias="'web.messages.formatTicketOrPNR'"
                                         touched="vm.submitTouched">
                                 </error-message>
                                 <input type="text"
                                        tabindex="3"
                                        placeholder="{{ 'web.order.form.pnr' | aliasStatic}}"
                                        class="textInp"
-                                       name="pnr"
-                                       ng-model="vm.searchParams.pnr"
+                                       name="pnrOrTicketNumber"
+                                       ng-model="vm.searchParams.pnrOrTicketNumber"
                                        ng-change="vm.clear()"
                                        ng-pattern="vm.pnrOrTicketRegexp"
                                        clean-search-order-param
+                                       maxlength="26"
                                        error-highlight="{{ vm.submitTouched }}"
                                        required/>
                               </div>
@@ -107,7 +109,7 @@
           </a>
         </p>
 
-        <order ng-if="vm.pnr && vm.lastName && vm.searchOrderForm.$valid" pnr="vm.pnr" lastname="vm.lastName"></order>
+        <order ng-if="vm.pnrOrTicketNumber && vm.lastName && vm.searchOrderForm.$valid" num="vm.pnrOrTicketNumber" lastname="vm.lastName"></order>
 
       </div>
     </div>

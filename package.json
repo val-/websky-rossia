@@ -5,8 +5,7 @@
   "author": "agafonov@sirena2000.ru",
   "private": true,
   "scripts": {
-    "build": "gulp build",
-    "test": "gulp test"
+    "gulp": "gulp"
   },
   "devDependencies": {
     "autoprefixer-stylus": "^0.14.0",

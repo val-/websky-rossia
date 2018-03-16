@@ -273,4 +273,5 @@
 <wrap ng-if="!vm.loading">
   <popup-alias></popup-alias>
   <popup-change-currency-error></popup-change-currency-error>
+  <popup-removed-services-warning ng-if="vm.orderInfo" order="vm.orderInfo"></popup-removed-services-warning>
 </wrap>
