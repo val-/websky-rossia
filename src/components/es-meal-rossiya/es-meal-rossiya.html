@@ -174,7 +174,7 @@
               <tr ng-repeat-end class="contentServiceRow">
                 <td ng-if="flightNum == vm.selectedFlight" class="firstCol"></td>
                 <td ng-if="flightNum == vm.selectedFlight" colspan="{{ vm.orderInfo.passengers.length }}">
-                  <div class="food_container">
+                  <div class="food_container" ng-if="vm.mealMenu">
                     <div class="food">
                       <div class="food__i">
 
