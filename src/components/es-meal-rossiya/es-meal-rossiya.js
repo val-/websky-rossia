@@ -81,7 +81,9 @@ function MealRossiyaController($scope, $element, backend, utils) {
 
     function updateMealMenu() {
         vm.mealMenu = vm.service.itemsByPassengerSegments[vm.selectedPassenger][vm.selectedFlight];
-        vm.mealMenuSubgroup = false;
+        if (vm.mealMenuSubgroup === undefined) {
+            vm.mealMenuSubgroup = false;
+        }
     }
 
     function setPassengerFlightMeal(subgroupNum, mealItem) {
