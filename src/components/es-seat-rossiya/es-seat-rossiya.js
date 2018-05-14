@@ -78,7 +78,7 @@ function SeatRossiyaController($scope, $element, $timeout, backend, utils) {
         if (reset) {
             seatMapContainerTopPosition = '0px';
         } else {
-            seatMapContainerTopPosition = jQuery('#seatMapCont .mCSB_container').css('top');
+            seatMapContainerTopPosition = jQuery('.passengersSeatMap .mCSB_container').css('top');
         }
     }
 
@@ -108,7 +108,7 @@ function SeatRossiyaController($scope, $element, $timeout, backend, utils) {
                 vm.seatMap = resp;
                 vm.loadingSeatMap = false;
                 $timeout(function () {
-                    jQuery('#seatMapCont .mCSB_container').css('top', seatMapContainerTopPosition);
+                    jQuery('.passengersSeatMap .mCSB_container').css('top', seatMapContainerTopPosition);
                 });
             }, function (resp) {
                 vm.seatMapError = resp.error;
@@ -121,7 +121,10 @@ function SeatRossiyaController($scope, $element, $timeout, backend, utils) {
     function setPassengerFlightSeat(chair, cabinAllowed, rowNumber) {
         if (!vm.locked) {
             if (chair.available && cabinAllowed) {
-                setSeatMapContainerTopPosition();
+                //setSeatMapContainerTopPosition();
+
+                seatMapContainerTopPosition = jQuery('.passengersSeatMap').find('.mCSB_container').css('top');
+
                 vm.modifyError = false;
                 backend.modifyExtraService({
                     code: 'seat',
